@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1000307068413",
+    "project_id": "lhere-app",
+    "storage_bucket": "lhere-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000307068413:android:2555ab94736f355f445d94",
+        "android_client_info": {
+          "package_name": "com.rixxisol.lhere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000307068413-0nkg28o3je7acu81iv4bfcsq1jdgdbov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWXEp8oQevt_h0_Q6cmvQH5SbK0bokAlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000307068413-0nkg28o3je7acu81iv4bfcsq1jdgdbov.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1000307068413-rdbdn3ero53rr45temoauack0at63s2k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rixxisol.lhere"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
