@@ -40,7 +40,7 @@ class signupController {
           fontSize: 16.0);
 
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => login()));
+          MaterialPageRoute(builder: (BuildContext context) => const login()));
     } else {
       Fluttertoast.showToast(
           msg: "Error",

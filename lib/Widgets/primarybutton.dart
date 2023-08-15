@@ -1,20 +1,24 @@
-
 import 'package:flutter/material.dart';
+import 'package:lhere/Utils/styles.dart';
 
 class primarybutton extends StatelessWidget {
-  primarybutton({@required this.title,  @required this.onpressed});
+  primarybutton({Key? key, @required this.title, @required this.onpressed})
+      : super(key: key);
   String? title;
-var onpressed;
+  var onpressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        child: ElevatedButton(
-          child: Text(title.toString()),
-          onPressed:onpressed
-
+    final styles = TextStyles();
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 50,
+      child: ElevatedButton(
+          onPressed: onpressed,
+          child: Text(
+            title.toString(),
+            style: styles.bodyBold,
+          )
 
           // style: ElevatedButton.styleFrom(
           //   primary: Colors.white,
@@ -23,7 +27,7 @@ var onpressed;
           //     borderRadius: BorderRadius.circular(16),
           //   ),
           // ),
-        ));
+          ),
+    );
   }
-
 }

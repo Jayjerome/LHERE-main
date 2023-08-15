@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:lhere/Model/Questionsmodel.dart';
@@ -37,7 +36,7 @@ List ans=[];
           padding: const EdgeInsets.all(25.0),
           child: Stack(
              children: [
-             Container(
+             SizedBox(
                width:MediaQuery.of(context).size.width,
                height:MediaQuery.of(context).size.height,
                child: Column(
@@ -75,7 +74,7 @@ List ans=[];
                          else{
                            Navigator.push(
                                context,
-                               new MaterialPageRoute(builder: (context) => profiling2(),
+                               MaterialPageRoute(builder: (context) => const profiling2(),
                                ));
                          }
                        }
@@ -95,7 +94,7 @@ List ans=[];
                          else{
                            Navigator.push(
                                context,
-                               new MaterialPageRoute(builder: (context) => profiling2(),
+                               MaterialPageRoute(builder: (context) => const profiling2(),
                                ));
                          }
                      }),

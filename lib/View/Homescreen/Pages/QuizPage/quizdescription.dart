@@ -6,7 +6,6 @@ import 'package:lhere/View/Homescreen/Pages/QuizPage/quizcompaniesdata.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../Constants/constants.dart';
-import '../../../../Controller/getcompaniesController.dart';
 import '../../../../Controller/questionfetechlist.dart';
 import '../../../../Widgets/circularbar.dart';
 import '../../../../Widgets/primarybutton.dart';
@@ -36,7 +35,7 @@ class _quizdescState extends State<quizdesc> {
       showSpinner=true;
     });
     quizdetail=await companyx.getuquizdata(context);
-if(quizdetail.id!.length!=0)
+if(quizdetail.id!.isNotEmpty)
   {
     setState(() {
       showSpinner=false;
@@ -52,20 +51,20 @@ if(quizdetail.id!.length!=0)
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          progressIndicator:Center(child:  circlularbar()),
+          progressIndicator:const Center(child:  circlularbar()),
 
           child: Padding(
             padding:
             const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
             child: Stack(
               children: [
-                Container(
+                SizedBox(
                   width:width,
                   height: height,
                 ),
                 Column(
                   children: [
-                    Container(
+                    SizedBox(
                       width: width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,18 +73,18 @@ if(quizdetail.id!.length!=0)
                                 onTap: () {
                                   Navigator.pop(context);
                                 },
-                                child: Icon(Icons.arrow_back)),
+                                child: const Icon(Icons.arrow_back)),
                             Text(
                               "Quiz Details",
                               style: primarytext,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_back,
                               color: Colors.white,
                             ),
                           ],
                         )),smallgap,
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: Image.asset(
@@ -105,58 +104,45 @@ if(quizdetail.id!.length!=0)
                        child: Column(
                          crossAxisAlignment:CrossAxisAlignment.start,
                          children: [
-                           Text("About Quiz",style:TextStyle(fontSize:21,fontWeight:FontWeight.bold),)
+                           const Text("About Quiz",style:TextStyle(fontSize:21,fontWeight:FontWeight.bold),)
                           ,
                            mediumgap,
                            Row(
                              crossAxisAlignment:CrossAxisAlignment.start,
                              children: [
-                               Container(
+                               SizedBox(
                                    width:width*0.3,
 
-                                   child: Text("Quiz Title",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
-                               Container(
+                                   child: const Text("Quiz Title",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
+                               SizedBox(
                                    width:width*0.4,
-                                   child: Text("${quizdetail.title ?? ""}",style:TextStyle(fontSize:15),textAlign:TextAlign.start,))
+                                   child: Text(quizdetail.title ?? "",style:const TextStyle(fontSize:15),textAlign:TextAlign.start,))
 
                              ],
                            ),smallgap,
                            Row(
                              crossAxisAlignment:CrossAxisAlignment.start,
                              children: [
-                               Container(
+                               SizedBox(
                                    width:width*0.3,
 
-                                   child: Text("Description",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
-                               Container(
+                                   child: const Text("Description",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
+                               SizedBox(
                                    width:width*0.4,
-                                   child: Text("${quizdetail.description ??""}",style:TextStyle(fontSize:15),textAlign:TextAlign.start,))
+                                   child: Text(quizdetail.description ??"",style:const TextStyle(fontSize:15),textAlign:TextAlign.start,))
 
                              ],
                            ),smallgap,
                            Row(
                              crossAxisAlignment:CrossAxisAlignment.start,
                              children: [
-                               Container(
+                               SizedBox(
                                    width:width*0.3,
 
-                                   child: Text("Quiz Day",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
-                               Container(
+                                   child: const Text("Quiz Day",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
+                               SizedBox(
                                    width:width*0.4,
-                                   child: Text("${quizdetail.date ?? ""}",style:TextStyle(fontSize:15),textAlign:TextAlign.start,))
-
-                             ],
-                           ),smallgap,
-                           Row(
-                             crossAxisAlignment:CrossAxisAlignment.start,
-
-                             children: [
-                               Container(
-                                   width:width*0.3,
-                                   child: Text("Quiz Time",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
-                               Container(
-                                   width:width*0.4,
-                                   child: Text("${quizdetail.time ?? ""}",style:TextStyle(fontSize:15),))
+                                   child: Text(quizdetail.date ?? "",style:const TextStyle(fontSize:15),textAlign:TextAlign.start,))
 
                              ],
                            ),smallgap,
@@ -164,12 +150,25 @@ if(quizdetail.id!.length!=0)
                              crossAxisAlignment:CrossAxisAlignment.start,
 
                              children: [
-                               Container(
+                               SizedBox(
                                    width:width*0.3,
-                                   child: Text("Companies",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
-                               Container(
+                                   child: const Text("Quiz Time",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
+                               SizedBox(
                                    width:width*0.4,
-                                   child: Text("${quizdetail.category ?? ""}",style:TextStyle(fontSize:15),))
+                                   child: Text(quizdetail.time ?? "",style:const TextStyle(fontSize:15),))
+
+                             ],
+                           ),smallgap,
+                           Row(
+                             crossAxisAlignment:CrossAxisAlignment.start,
+
+                             children: [
+                               SizedBox(
+                                   width:width*0.3,
+                                   child: const Text("Companies",style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),)),
+                               SizedBox(
+                                   width:width*0.4,
+                                   child: Text(quizdetail.category ?? "",style:const TextStyle(fontSize:15),))
 
                              ],
                            )
@@ -192,12 +191,12 @@ if(quizdetail.id!.length!=0)
                title: "Start Quiz",
                onpressed: () {
 
-                 final now = new DateTime.now();
+                 final now = DateTime.now();
                  String day = DateFormat('EEEE').format(now);// 28/03/2020
                  String hour = DateFormat('Hm').format(now);// 28/03/2020
 
 
-                 if(quizdetail.date.toString()!='$day'&& '${quizdetail.time}'!=hour)
+                 if(quizdetail.date.toString()!=day&& '${quizdetail.time}'!=hour)
                  {
                    Navigator.push(
                        context, MaterialPageRoute(builder: (context) => start(quizdetail.category.toString())));
@@ -220,7 +219,7 @@ if(quizdetail.id!.length!=0)
                title: "Quiz Preparation",
                onpressed: () {
                  Navigator.push(
-                     context, MaterialPageRoute(builder: (context) => quizpreparatioj()));
+                     context, MaterialPageRoute(builder: (context) => const quizpreparatioj()));
                },
              )
            ],))

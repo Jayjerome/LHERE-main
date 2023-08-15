@@ -1,29 +1,27 @@
 import 'dart:developer';
 
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lhere/Constants/constants.dart';
 import 'package:lhere/Controller/getcompaniesController.dart';
+import 'package:lhere/Utils/styles.dart';
 import 'package:lhere/View/Homescreen/Pages/Filterscreen.dart';
-import 'package:lhere/View/Homescreen/Pages/Jobdetails.dart';
+import 'package:lhere/View/Homescreen/Pages/jobdetails.dart';
 import 'package:lhere/Widgets/boxbutton.dart';
-import 'package:lhere/Widgets/primarybutton.dart';
-import 'package:lhere/Widgets/secondrybutton.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
+import 'package:lhere/Widgets/search_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Model/postModel.dart';
 
-class homescreen extends StatefulWidget {
-  const homescreen({Key? key}) : super(key: key);
+class Homescreen extends StatefulWidget {
+  const Homescreen({Key? key}) : super(key: key);
 
   @override
-  _homescreenState createState() => _homescreenState();
+  State<Homescreen> createState() => _HomescreenState();
 }
 
-class _homescreenState extends State<homescreen> {
+class _HomescreenState extends State<Homescreen> {
   String title = "";
   String baseUrl = "https://quizzinger.com/there/company/images";
   String city = "";
@@ -34,21 +32,21 @@ class _homescreenState extends State<homescreen> {
   Future<void> getfilterdata(BuildContext context) async {
     final result = await Navigator.push(
         context,
-        new MaterialPageRoute(
-          builder: (context) => filterscreen(),
+        MaterialPageRoute(
+          builder: (context) => const filterscreen(),
         ));
 
     print('result - ${result['city']}');
     if (result['city'] == "" && result['interest'] == "") {
     } else {
       print('else');
-      getallfilterposts(result['city'], result['interest']);
+      getallfilterposts(result['city'] ?? '', result['interest']);
     }
   }
 
   Future<void> getuserdata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String titleget = await prefs.getString("name").toString() ?? "";
+    String titleget = prefs.getString("name").toString() ?? "";
     setState(() {
       title = titleget;
     });
@@ -63,17 +61,17 @@ class _homescreenState extends State<homescreen> {
     super.initState();
   }
 
-  List<postModel> postllist = [];
+  List<postModel> postlist = [];
 
   getallposts() async {
-    postllist.clear();
+    postlist.clear();
     var listq = await getcompany.getcompanydata();
 
     print(listq);
     setState(() {
-      postllist = listq;
-      log(postllist.length.toString());
-      if (postllist.length == 0) {
+      postlist = listq;
+      log(postlist.length.toString());
+      if (postlist.isEmpty) {
         loading = false;
         nodata = true;
       } else {
@@ -88,13 +86,13 @@ class _homescreenState extends State<homescreen> {
       loading = true;
       nodata = false;
     });
-    postllist.clear();
+    postlist.clear();
     var listq = await getcompany.getfilter(city, interest);
 
     setState(() {
-      postllist = listq;
-      log(postllist.length.toString());
-      if (postllist.length == 0) {
+      postlist = listq;
+      log(postlist.length.toString());
+      if (postlist.isEmpty) {
         loading = false;
         nodata = true;
       } else {
@@ -108,6 +106,7 @@ class _homescreenState extends State<homescreen> {
   Widget build(BuildContext context) {
     var wsize = MediaQuery.of(context).size.width;
     var hsize = MediaQuery.of(context).size.height;
+    final styles = TextStyles();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -150,43 +149,50 @@ class _homescreenState extends State<homescreen> {
                           color: Colors.white70,
                           fontSize: MediaQuery.of(context).size.height * 0.025),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: wsize * 0.8,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.white),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Filter"),
-                                Icon(
-                                  CupertinoIcons.search,
-                                  size: 19,
-                                )
-                              ],
+                        InkWell(
+                          onTap: () {
+                            SearchScreen.open(context, postlist);
+                          },
+                          child: Container(
+                            width: wsize * 0.8,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text("Filter"),
+                                  Icon(
+                                    CupertinoIcons.search,
+                                    size: 19,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
                         InkWell(
-                            onTap: () {
-                              getfilterdata(context);
-                            },
-                            child: Image.asset(
-                              "assets/filter.png",
-                              color: Colors.white,
-                              width: 25,
-                              height: 25,
-                            ))
+                          onTap: () {
+                            getfilterdata(context);
+                          },
+                          child: Image.asset(
+                            "assets/filter.png",
+                            color: Colors.white,
+                            width: 25,
+                            height: 25,
+                          ),
+                        )
                       ],
                     )
                   ],
@@ -218,101 +224,168 @@ class _homescreenState extends State<homescreen> {
             ),
 
             Container(
-                width: wsize,
-                margin: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                height: hsize * 0.50,
-                child: loading
-                    ? nodata == true
-                        ? Center(
-                            child: SizedBox(
-                                width: 250,
-                                height: 150,
-                                child: Text("No Results")))
-                        : Center(
-                            child: SizedBox(
-                                width: 250,
-                                height: 150,
-                                child: Image.asset("assets/load.gif")))
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: postllist.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.all(10),
-                            width: wsize * 0.8,
-                            decoration: boxdecor,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Stack(
-                                  children: [
-                                    SizedBox(
-                                        width: wsize * 0.8,
-                                        height: hsize * 0.24,
+              width: wsize,
+              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+              height: hsize * 0.50,
+              child: loading
+                  ? nodata == true
+                      ? const Center(
+                          child: SizedBox(
+                              width: 250,
+                              height: 150,
+                              child: Text("No Results")))
+                      : Center(
+                          child: SizedBox(
+                              width: 250,
+                              height: 150,
+                              child: Image.asset("assets/load.gif")))
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: postlist.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        final post = postlist[index];
+                        return CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JobDetail(post)),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              margin: const EdgeInsets.all(8),
+                              // padding: EdgeInsets.symmetric(horizontal: 8),
+                              width: wsize * 0.8,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 3,
+                                    offset: Offset(2, 5),
+                                  ), //BoxShadow
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 2,
+                                    offset: Offset(2, 0),
+                                  ), //BoxShadow
+                                  //BoxShadow
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: double.infinity,
+                                        height: 229,
                                         child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(7),
-                                                topRight:
-                                                    Radius.circular(7)),
-                                            child: FadeInImage.assetNetwork(
-                                              placeholder:
-                                                  "assets/place.png",
-                                              image:
-                                                  "${Constants.baseUrl}${postllist[index].image}",
-                                              fit: BoxFit.cover,
-                                            ))),
-                                    Positioned(
-                                        bottom: 10,
-                                        left: 10,
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20)),
+                                          child: FadeInImage.assetNetwork(
+                                            imageErrorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    Container(
+                                              color: Colors.amber,
+                                            ),
+                                            placeholder: "assets/place.png",
+                                            image: post.image!,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        left: 0,
+                                        child: Container(
+                                          height: 120,
+                                          width: double.infinity,
+                                          decoration: const BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              stops: [0, 0.6, 1],
+                                              colors: [
+                                                Colors.transparent,
+                                                Colors.black12,
+                                                Colors.black45,
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 12,
+                                        left: 8,
                                         child: Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.location_on,
                                               color: Colors.red,
                                             ),
+                                            const SizedBox(width: 4),
                                             Text(
-                                              "${postllist[index].city},Austria",
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              "${post.city}, Austria",
+                                              style: styles.titleLight,
                                             )
                                           ],
-                                        ))
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12.0),
+                                    child: Text(
+                                      "${post.title}",
+                                      style: styles.title,
+                                      maxLines: 4,
+                                    ),
+                                  ),
+                                  if (title.isNotEmpty) ...[
+                                    const SizedBox(height: 8),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0),
+                                      child: Text(
+                                        "${post.skill}",
+                                        style: styles.subtitle1,
+                                        maxLines: 1,
+                                      ),
+                                    ),
                                   ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    "${postllist[index].title}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 10),
-                                  child: Text(
-                                    "${postllist[index].skill}",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black54),
-                                  ),
-                                ),
-                                Spacer(),
-                                boxbutton(
-                                    title: "Details",
-                                    onpressed: () {
-                                      Navigator.push(
+                                  const Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: boxbutton(
+                                      title: "Details",
+                                      onpressed: () {
+                                        Navigator.push(
                                           context,
-                                          new MaterialPageRoute(
+                                          MaterialPageRoute(
                                               builder: (context) =>
-                                                  jobdetail(postllist[index])));
-                                    }),
-                              ],
+                                                  JobDetail(post)),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          );
-                        }))
+                          ),
+                        );
+                      },
+                    ),
+            )
 
             // Container(
             //   width: wsize,

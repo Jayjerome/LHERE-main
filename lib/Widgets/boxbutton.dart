@@ -1,28 +1,33 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lhere/Constants/constants.dart';
+import 'package:lhere/Utils/styles.dart';
 
 class boxbutton extends StatelessWidget {
-  boxbutton({@required this.title,  @required this.onpressed});
+  boxbutton({Key? key, @required this.title, @required this.onpressed})
+      : super(key: key);
   String? title;
   var onpressed;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final styles = TextStyles();
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: onpressed,
+      child: Container(
+        height: 37,
+        alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,
-        child: ElevatedButton(
-            child: Text(title.toString()),
-            onPressed:onpressed,
-          style: ElevatedButton.styleFrom(
-            primary: primarycolor,
-            padding: EdgeInsets.symmetric(vertical: 13),
-            onPrimary: Colors.white, //change text color of button
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-          // ),
-        )));
+        decoration: BoxDecoration(
+          color: primarycolor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Text(
+          title.toString(),
+          style: styles.bodyLightBold,
+        ),
+      ),
+    );
   }
-
 }

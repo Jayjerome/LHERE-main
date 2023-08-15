@@ -1,15 +1,12 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lhere/Constants/constants.dart';
 
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../View/Authentication/Sigin/signin.dart';
 
 class editprofilecontroller
 {
@@ -20,7 +17,7 @@ class editprofilecontroller
   async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    log(email+"."+fullname+"."+city);
+    log("$email.$fullname.$city");
     var bodydata={
       "fullname":fullname,
       "city":city,

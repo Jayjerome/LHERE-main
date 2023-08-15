@@ -1,9 +1,6 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lhere/View/Candidate/screens/introduction/startingscreen.dart';
 import 'package:lhere/View/Homescreen/Pages/QuizPage/quizdescription.dart';
-import 'package:lhere/Widgets/primarybutton.dart';
 import 'package:lhere/Widgets/secondrybutton.dart';
 
 import '../../../../Constants/constants.dart';
@@ -52,7 +49,7 @@ class _QuizscreenState extends State<Quizscreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -60,7 +57,7 @@ class _QuizscreenState extends State<Quizscreen> {
             textAlign: TextAlign.center,
             style: Secondtext,
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
             height: MediaQuery.of(context).size.height * 0.4,
             child: Image.asset(
@@ -68,10 +65,10 @@ class _QuizscreenState extends State<Quizscreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 10, left: 45, right: 45),
+            margin: const EdgeInsets.only(top: 10, left: 45, right: 45),
             child: secondrybutton(title: "Quiz Screen", onpressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => quizdesc()));
+                  context, MaterialPageRoute(builder: (context) => const quizdesc()));
             }),
           )
         ]),

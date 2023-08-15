@@ -1,18 +1,11 @@
-import 'dart:async';
-import 'dart:developer';
-import 'dart:math';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lhere/Constants/constants.dart';
-import 'package:lhere/Controller/questionfetechlist.dart';
 import 'package:lhere/View/Candidate/screens/partone/widget/customradio.dart';
 import 'package:lhere/View/Homescreen/Pages/QuizPage/quizcompleted.dart';
-import 'package:lhere/View/Profileanaylsis/profilingcompleted.dart';
 
 import '../../../../Model/questionsdata.dart';
 
@@ -20,7 +13,7 @@ import '../../../../Model/questionsdata.dart';
 class partone extends StatefulWidget {
   List<questiondata> questionlist=[];
 
-  partone(this.questionlist);
+  partone(this.questionlist, {Key? key}) : super(key: key);
 
   @override
   _partoneState createState() => _partoneState();
@@ -38,12 +31,12 @@ class _partoneState extends State<partone> {
     return Scaffold(
       backgroundColor: primarycolor,
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
 
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               //header
@@ -65,7 +58,7 @@ class _partoneState extends State<partone> {
                       padding: const EdgeInsets.all(8.0),
                       child:Row(
                         children: [
-                          Text("Points: $points",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:20),)
+                          Text("Points: $points",style:const TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:20),)
                         ],
                       ),
                     ),
@@ -73,13 +66,13 @@ class _partoneState extends State<partone> {
                 ),
               ),
               //2nd Header
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
 
               Container(
 
-                  margin:EdgeInsets.symmetric(horizontal:17),
+                  margin:const EdgeInsets.symmetric(horizontal:17),
                   child:CircularCountDownTimer(
                     duration:widget.questionlist.length*10,
                     initialDuration: 0,
@@ -115,11 +108,11 @@ class _partoneState extends State<partone> {
                     },
                   )
               ),
-              SizedBox(
+              const SizedBox(
                 height:10,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Text("Question ",
                     style: TextStyle(
                         fontSize:MediaQuery.of(context).size.height * 0.02,
@@ -132,15 +125,15 @@ class _partoneState extends State<partone> {
                         fontWeight: FontWeight.bold)),
               ]),
               //countdown timer progressbar
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
 
               //question screen
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 17),
-                padding: EdgeInsets.symmetric(horizontal: 17),
+                margin: const EdgeInsets.symmetric(horizontal: 17),
+                padding: const EdgeInsets.symmetric(horizontal: 17),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5), //border corner radius
@@ -149,7 +142,7 @@ class _partoneState extends State<partone> {
                       color: Colors.grey.withOpacity(0.5), //color of shadow
                       spreadRadius: 5, //spread radius
                       blurRadius: 7, // blur radius
-                      offset: Offset(0, 2), // changes position of shadow
+                      offset: const Offset(0, 2), // changes position of shadow
                       //first paramerter of offset is left-right
                       //second parameter is top to down
                     ),
@@ -158,7 +151,7 @@ class _partoneState extends State<partone> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -166,7 +159,7 @@ class _partoneState extends State<partone> {
                       style: GoogleFonts.alata(
                           fontSize: MediaQuery.of(context).size.height * 0.03, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     //options
@@ -177,7 +170,7 @@ class _partoneState extends State<partone> {
                             value: 1,
                             groupValue: _value,
                             leading: 'A',
-                            title: Container(
+                            title: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: Text(
                                     '${widget.questionlist[questioncount].optiona}',maxLines:2,),),
@@ -191,14 +184,14 @@ class _partoneState extends State<partone> {
                             }
 
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           MyRadioListTile<int>(
                             value: 2,
                             groupValue: _value,
                             leading: 'B',
-                            title: Container(
+                            title: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: Text(
                                     '${widget.questionlist[questioncount].optionb}',maxLines:2,)),
@@ -209,14 +202,14 @@ class _partoneState extends State<partone> {
                                 });
                               }
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           MyRadioListTile<int>(
                             value: 3,
                             groupValue: _value,
                             leading: 'C',
-                            title: Container(
+                            title: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: Text(
                                     '${widget.questionlist[questioncount].optionc}',maxLines:2,)),
@@ -227,14 +220,14 @@ class _partoneState extends State<partone> {
                                 });
                               }
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           MyRadioListTile<int>(
                             value: 4,
                             groupValue: _value,
                             leading: 'D',
-                            title: Container(
+                            title: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.6,
                                 child: Text(
                                     '${widget.questionlist[questioncount].optiond}',maxLines:2,)),
@@ -248,13 +241,13 @@ class _partoneState extends State<partone> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
 
@@ -297,7 +290,7 @@ print(points.toString());
 
                     }});
                   },
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Next",
                       style: TextStyle(
@@ -309,7 +302,7 @@ print(points.toString());
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],

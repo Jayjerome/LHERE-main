@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lhere/Controller/ediitprofileController.dart';
 import 'package:lhere/Controller/signupController.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -38,10 +37,10 @@ class _editProfileState extends State<editProfile> {
   Future<void> getuserdata()
   async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    namecontroller.text=await prefs.getString("name").toString()?? "";
-    emailcontroller.text=await prefs.getString("email").toString()?? "";
+    namecontroller.text=prefs.getString("name").toString()?? "";
+    emailcontroller.text=prefs.getString("email").toString()?? "";
 
-    city=await prefs.getString("city").toString()?? "";
+    city=prefs.getString("city").toString()?? "";
     setState(()  {
 
 
@@ -78,18 +77,18 @@ class _editProfileState extends State<editProfile> {
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Icon(Icons.arrow_back)),
+                              child: const Icon(Icons.arrow_back)),
                           Text(
                             "Edit Profile",
                             style: primarytext,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_back,
                             color: Colors.white,
                           ),
                         ],
                       )),mediumgap,
-                  CircleAvatar(
+                  const CircleAvatar(
                     backgroundImage:AssetImage("assets/avatar.png",),
                     backgroundColor:Colors.white,
                     radius: 70,
@@ -119,15 +118,15 @@ class _editProfileState extends State<editProfile> {
 
                         //to show search box
                         showSearchBox: true,
-                        dropdownSearchDecoration: InputDecoration(
+                        dropdownSearchDecoration: const InputDecoration(
                             prefixIcon: Icon(Icons.location_on),
-                            border: const OutlineInputBorder(
+                            border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(16.0),
                               ),
                             )),
                         //list of dropdown items
-                        items: [
+                        items: const [
                           "Vienna",
                           "Graz",
                           "Linz",
@@ -150,14 +149,14 @@ class _editProfileState extends State<editProfile> {
                       controller:emailcontroller,
 
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(Icons.email_outlined),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Your email",
                           fillColor: Colors.white),
                     ),
@@ -200,12 +199,12 @@ edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: new Text("Password Reset"),
-              content: new Text(
+              title: const Text("Password Reset"),
+              content: const Text(
                   "You will recieve email soon"),
               actions: <Widget>[
-                new TextButton(
-                  child: new Text("OK"),
+                TextButton(
+                  child: const Text("OK"),
                   onPressed: () {
                   Navigator.pop(context);
                   },
@@ -227,7 +226,7 @@ edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
                     "No user found for that email"),
                 actions: <Widget>[
                   TextButton(
-                    child: new Text("OK"),
+                    child: const Text("OK"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

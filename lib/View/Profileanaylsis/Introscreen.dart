@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lhere/Constants/constants.dart';
-import 'package:lhere/View/Authentication/Sigin/signin.dart';
 import 'package:lhere/View/Profileanaylsis/profiling.dart';
 
 class introscreen extends StatefulWidget {
@@ -31,7 +29,7 @@ class _introscreenState extends State<introscreen> {
 
       Navigator.pushReplacement(
         context,
-        new MaterialPageRoute(builder: (context) => profiling()),
+        MaterialPageRoute(builder: (context) => const profiling()),
       );
 
     });
@@ -45,19 +43,19 @@ class _introscreenState extends State<introscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DelayedDisplay(
-              delay: Duration(seconds: 1),
+              delay: const Duration(seconds: 1),
               child: Text(
                   "Profile Analysis",textAlign:TextAlign.center,
                   style:primarytext)),
           DelayedDisplay(
-            delay: Duration(seconds: 2),
+            delay: const Duration(seconds: 2),
             child: Text(
               "Starting Get Ready",textAlign:TextAlign.center,
               style:Secondtext,
             )),
               DelayedDisplay(
-                  delay: Duration(seconds: 3),
-                  child: Container(
+                  delay: const Duration(seconds: 3),
+                  child: SizedBox(
                       width: 250,
                       height:150,
                       child: Image.asset("assets/load.gif")),),

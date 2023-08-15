@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:lhere/View/Homescreen/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +15,7 @@ class signinController {
   getuserdata(String email, BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    log("$email");
+    log(email);
     var bodydata = {
       "email": email,
     };
@@ -48,10 +46,10 @@ class signinController {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => introscreen()));
+                builder: (BuildContext context) => const introscreen()));
       } else {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (BuildContext context) => menu()));
+            MaterialPageRoute(builder: (BuildContext context) => const menu()));
       }
 
       return "ok";

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lhere/Model/Questionsmodel.dart';
 import 'package:lhere/View/Profileanaylsis/profilingcompleted.dart';
-import 'package:lhere/Widgets/primarybutton.dart';
-import 'package:lhere/Widgets/secondrybutton.dart';
 
 import '../../Constants/constants.dart';
 
 class profiling2 extends StatefulWidget {
+  const profiling2({Key? key}) : super(key: key);
+
   @override
   _profiling2State createState() => _profiling2State();
 }
@@ -24,7 +23,7 @@ class _profiling2State extends State<profiling2> {
           padding: const EdgeInsets.all(25.0),
           child: Stack(
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Column(
@@ -48,7 +47,7 @@ class _profiling2State extends State<profiling2> {
                         onTap:(){
                           Navigator.push(
                               context,
-                              new MaterialPageRoute(builder: (context) => profilingcompleted("Technology"),
+                              MaterialPageRoute(builder: (context) => profilingcompleted("Technology"),
                               ));
 
                       },
@@ -60,7 +59,7 @@ class _profiling2State extends State<profiling2> {
                             color: Colors.black87),
                         child:Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: width,
                               height: height * 0.14,
                               child: ClipRRect(
@@ -75,7 +74,7 @@ class _profiling2State extends State<profiling2> {
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.black26),
                             ),
-                            Positioned(
+                            const Positioned(
                               bottom:15,
                                 right:15,
                                 child: Text("Technical Work",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
@@ -88,7 +87,7 @@ class _profiling2State extends State<profiling2> {
                       onTap:(){
                         Navigator.push(
                             context,
-                            new MaterialPageRoute(builder: (context) => profilingcompleted("Kitchen"),
+                            MaterialPageRoute(builder: (context) => profilingcompleted("Kitchen"),
                             ));
                       },
                       child: Container(
@@ -99,7 +98,7 @@ class _profiling2State extends State<profiling2> {
                             color: Colors.black87),
                         child:Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: width,
                               height: height * 0.14,
                               child: ClipRRect(
@@ -114,7 +113,7 @@ class _profiling2State extends State<profiling2> {
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.black26),
                             ),
-                            Positioned(
+                            const Positioned(
                                 bottom:15,
                                 right:15,
                                 child: Text("Kitchen Work",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
@@ -127,7 +126,7 @@ class _profiling2State extends State<profiling2> {
                       onTap:(){
                         Navigator.push(
                             context,
-                            new MaterialPageRoute(builder: (context) => profilingcompleted("Office"),
+                            MaterialPageRoute(builder: (context) => profilingcompleted("Office"),
                             ));
                       },
                       child: Container(
@@ -138,7 +137,7 @@ class _profiling2State extends State<profiling2> {
                             color: Colors.black87),
                         child:Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: width,
                               height: height * 0.14,
                               child: ClipRRect(
@@ -153,7 +152,7 @@ class _profiling2State extends State<profiling2> {
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.black26),
                             ),
-                            Positioned(
+                            const Positioned(
                                 bottom:15,
                                 right:15,
                                 child: Text("Office Work",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))

@@ -34,11 +34,11 @@ class _profilescrenState extends State<profilescren> {
   Future<void> getuserdata()
   async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String myname=await prefs.getString("name").toString()?? "";
-    String myemail=await prefs.getString("email").toString()?? "";
-    String mypoint=await prefs.getString("points").toString()?? "";
-    String myskill=await prefs.getString("skill").toString()?? "";
-    String mycity=await prefs.getString("city").toString()?? "";
+    String myname=prefs.getString("name").toString()?? "";
+    String myemail=prefs.getString("email").toString()?? "";
+    String mypoint=prefs.getString("points").toString()?? "";
+    String myskill=prefs.getString("skill").toString()?? "";
+    String mycity=prefs.getString("city").toString()?? "";
     log(city);
     setState(() {
      name=myname;
@@ -89,9 +89,9 @@ getuserdata();
 
                               Navigator.push(
                                   context,
-                                  new MaterialPageRoute(builder: (context) => editProfile(),
+                                  MaterialPageRoute(builder: (context) => const editProfile(),
                                   ));
-                            }, icon:Icon(Icons.edit,color:Colors.white,))
+                            }, icon:const Icon(Icons.edit,color:Colors.white,))
                           ],
                         ),
                         smallgap,smallgap,
@@ -104,7 +104,7 @@ getuserdata();
                       left:wsize*0.3,
 
 
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                         backgroundImage:AssetImage("assets/avatar.png",),
                         backgroundColor:Colors.white,
                         radius: 60,
@@ -118,8 +118,8 @@ getuserdata();
 
             SizedBox(height:hsize*0.1,),
             Text(
-              "$name",
-              style: TextStyle(
+              name,
+              style: const TextStyle(
                 fontSize: 18,
 
                 fontWeight: FontWeight.bold,
@@ -128,14 +128,14 @@ getuserdata();
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  SizedBox(height:10,),
+                  const SizedBox(height:10,),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 17),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(
+                        const Text(
                           "Earn Points",
                           style: TextStyle(
                             fontSize: 15,
@@ -143,8 +143,8 @@ getuserdata();
 
                           ), ),
                         Text(
-                          "$points",
-                          style: TextStyle(
+                          points,
+                          style: const TextStyle(
                             fontSize: 15,
 
 
@@ -165,7 +165,7 @@ getuserdata();
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(
                             fontSize: 15,
@@ -173,8 +173,8 @@ getuserdata();
 
                           ), ),
                         Text(
-                          "$email",
-                          style: TextStyle(
+                          email,
+                          style: const TextStyle(
                             fontSize: 15,
 
 
@@ -195,7 +195,7 @@ getuserdata();
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(
+                        const Text(
                           "Interest",
                           style: TextStyle(
                             fontSize: 15,
@@ -203,8 +203,8 @@ getuserdata();
 
                           ), ),
                         Text(
-                          "$skill",
-                          style: TextStyle(
+                          skill,
+                          style: const TextStyle(
                             fontSize: 15,
 
 
@@ -225,7 +225,7 @@ getuserdata();
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text(
+                        const Text(
                           "City",
                           style: TextStyle(
                             fontSize: 15,
@@ -233,8 +233,8 @@ getuserdata();
 
                           ), ),
                         Text(
-                          "$city",
-                          style: TextStyle(
+                          city,
+                          style: const TextStyle(
                             fontSize: 15,
 
 
@@ -254,7 +254,7 @@ getuserdata();
             ),
 
         Container(
-          margin: EdgeInsets.only(top: 10, left: 45, right: 45),
+          margin: const EdgeInsets.only(top: 10, left: 45, right: 45),
 
           child: secondrybutton(title:"Logout", onpressed:() async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -268,7 +268,7 @@ getuserdata();
               MaterialPageRoute<dynamic>(
                 builder: (
                     BuildContext context) =>
-                    login(),
+                    const login(),
               ),
                   (
                   route) => false, //if you want to disable back feature set to false

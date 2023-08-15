@@ -1,13 +1,11 @@
 import 'dart:developer';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lhere/Controller/signupController.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:location/location.dart';
 import '../../../Constants/constants.dart';
 import '../../../Widgets/circularbar.dart';
 import '../../../Widgets/primarybutton.dart';
@@ -38,7 +36,7 @@ class _signupState extends State<signup> {
     String p =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-    RegExp regExp = new RegExp(p);
+    RegExp regExp = RegExp(p);
 
     return regExp.hasMatch(em);
   }
@@ -109,7 +107,7 @@ class _signupState extends State<signup> {
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          progressIndicator: Center(child: circlularbar()),
+          progressIndicator: const Center(child: circlularbar()),
           child: SingleChildScrollView(
             child: Padding(
               padding:
@@ -125,12 +123,12 @@ class _signupState extends State<signup> {
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Icon(Icons.arrow_back)),
+                          child: const Icon(Icons.arrow_back)),
                       Text(
                         "Konto erstellen",
                         style: primarytext,
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                       ),
@@ -173,7 +171,7 @@ class _signupState extends State<signup> {
                             onTap: () {
                               getLocation();
                             },
-                            child: Icon(Icons.gps_fixed)),
+                            child: const Icon(Icons.gps_fixed)),
                         fillColor: Colors.white),
                   ),
                   // SizedBox(
@@ -216,14 +214,14 @@ class _signupState extends State<signup> {
                         email = v;
                       },
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(Icons.email_outlined),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Deine Email",
                           fillColor: Colors.white),
                     ),
@@ -236,14 +234,14 @@ class _signupState extends State<signup> {
                       },
                       obscureText: true,
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
+                          prefixIcon: const Icon(Icons.lock),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Passwort",
                           fillColor: Colors.white),
                     ),
@@ -256,20 +254,20 @@ class _signupState extends State<signup> {
                       },
                       obscureText: true,
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
+                          prefixIcon: const Icon(Icons.lock),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Passwort wiederholen",
                           fillColor: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 5,),
-                  Text(
+                  const SizedBox(height: 5,),
+                  const Text(
                       "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl, ein Sonderzeichen enthalten und muss mindestens 8 Zeichen lang sein.",
                       style: TextStyle(
                           fontSize: 11,

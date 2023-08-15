@@ -1,15 +1,9 @@
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:lhere/Constants/constants.dart';
 import 'package:lhere/View/Authentication/Signup/signup.dart';
 import 'package:lhere/View/Authentication/forgotPassword/forgotPassword.dart';
-import 'package:lhere/View/Homescreen/Pages/homepage.dart';
-import 'package:lhere/View/Homescreen/menu.dart';
-import 'package:lhere/View/Profileanaylsis/Introscreen.dart';
-import 'package:lhere/View/Profileanaylsis/profiling.dart';
 import 'package:lhere/Widgets/primarybutton.dart';
 import 'package:lhere/Widgets/secondrybutton.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -18,6 +12,8 @@ import '../../../Controller/signinController.dart';
 import '../../../Widgets/circularbar.dart';
 
 class login extends StatefulWidget {
+  const login({Key? key}) : super(key: key);
+
   @override
   _loginState createState() => _loginState();
 }
@@ -34,7 +30,7 @@ class _loginState extends State<login> {
     String p =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-    RegExp regExp = new RegExp(p);
+    RegExp regExp = RegExp(p);
 
     return regExp.hasMatch(em);
   }
@@ -68,11 +64,11 @@ class _loginState extends State<login> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: new Text("Alert"),
-                  content: new Text("No user found for that email"),
+                  title: const Text("Alert"),
+                  content: const Text("No user found for that email"),
                   actions: <Widget>[
-                    new TextButton(
-                      child: new Text("OK"),
+                    TextButton(
+                      child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -88,8 +84,8 @@ class _loginState extends State<login> {
                   title: const Text("Alert"),
                   content: const Text("Wrong Password"),
                   actions: <Widget>[
-                    new TextButton(
-                      child: new Text("OK"),
+                    TextButton(
+                      child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -108,11 +104,11 @@ class _loginState extends State<login> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: new Text("Alert"),
-              content: new Text("Please Enter Values"),
+              title: const Text("Alert"),
+              content: const Text("Please Enter Values"),
               actions: <Widget>[
-                new TextButton(
-                  child: new Text("OK"),
+                TextButton(
+                  child: const Text("OK"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -136,7 +132,7 @@ class _loginState extends State<login> {
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          progressIndicator: Center(child: circlularbar()),
+          progressIndicator: const Center(child: circlularbar()),
           child: SingleChildScrollView(
             child: Padding(
               padding:
@@ -150,7 +146,7 @@ class _loginState extends State<login> {
                       style: primarytext,
                     )),
                   ),
-                  Container(
+                  SizedBox(
                     width: width * 0.9,
                     height: height * .35,
                     child: Image.asset(
@@ -165,14 +161,14 @@ class _loginState extends State<login> {
                         email = v;
                       },
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.perm_identity),
+                          prefixIcon: const Icon(Icons.perm_identity),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Deine Email",
                           fillColor: Colors.white),
                     ),
@@ -185,14 +181,14 @@ class _loginState extends State<login> {
                       },
                       obscureText: true,
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
+                          prefixIcon: const Icon(Icons.lock),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Passwort",
                           fillColor: Colors.white),
                     ),
@@ -203,8 +199,8 @@ class _loginState extends State<login> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            new MaterialPageRoute(
-                              builder: (context) => forgotPassword(),
+                            MaterialPageRoute(
+                              builder: (context) => const forgotPassword(),
                             ));
                       },
                       child: Padding(
@@ -226,8 +222,8 @@ class _loginState extends State<login> {
                       onpressed: () {
                         Navigator.push(
                             context,
-                            new MaterialPageRoute(
-                              builder: (context) => signup(),
+                            MaterialPageRoute(
+                              builder: (context) => const signup(),
                             ));
                       })
                 ],

@@ -1,15 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:lhere/Controller/ediitprofileController.dart';
-import 'package:lhere/Controller/signupController.dart';
+import 'package:lhere/Widgets/primarybutton.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Constants/constants.dart';
-import '../../../Widgets/primarybutton.dart';
 import '../../../Widgets/secondrybutton.dart';
 
 class filterscreen extends StatefulWidget {
@@ -43,31 +38,56 @@ class _filterscreenState extends State<filterscreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // Container(
+                  //     child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     GestureDetector(
+                  //         onTap: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         child: const Icon(Icons.arrow_back)),
+                  //     Text(
+                  //       "FilterScreen",
+                  //       style: primarytext,
+                  //     ),
+                  //     const Icon(
+                  //       Icons.arrow_back,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ],
+                  // )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(Icons.arrow_back)),
-                      Text(
-                        "FilterScreen",
-                        style: primarytext,
-                      ),
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        child: const Icon(Icons.clear,
+                            size: 35, color: Colors.black45),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ],
-                  )),
+                  ),
+                  smallgap,
+                  const SizedBox(
+                      height: 50,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: CupertinoSearchTextField(
+                          placeholder: 'Enter City',
+                        ),
+                      )),
                   mediumgap,
-                  Text("Select Radius"),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text("Select Radius"),
+                  ),
                   mediumgap,
                   Column(
                     children: [
@@ -127,9 +147,9 @@ class _filterscreenState extends State<filterscreen> {
                         children: [
                           Text(
                             "$selectedKm ",
-                            style: TextStyle(fontSize: 23),
+                            style: const TextStyle(fontSize: 23),
                           ),
-                          Text(
+                          const Text(
                             "Km",
                             style: TextStyle(fontSize: 11),
                           ),
@@ -138,26 +158,30 @@ class _filterscreenState extends State<filterscreen> {
                     ],
                   ),
                   mediumgap,
-                  Text("Select Profession"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: const Text("Select Profession"),
+                  ),
                   smallgap,
-                  SizedBox(
-                    height: 65,
-                    child: DropdownSearch<String>(
-
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: SizedBox(
+                      height: 65,
+                      child: DropdownSearch<String>(
                         //mode of dropdown
                         mode: Mode.MENU,
 
                         //to show search box
                         showSearchBox: true,
-                        dropdownSearchDecoration: InputDecoration(
+                        dropdownSearchDecoration: const InputDecoration(
                             prefixIcon: Icon(Icons.scatter_plot_sharp),
-                            border: const OutlineInputBorder(
+                            border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(16.0),
                               ),
                             )),
                         //list of dropdown items
-                        items: [
+                        items: const [
                           "Technology",
                           "Office",
                           "Kitchen",
@@ -168,16 +192,24 @@ class _filterscreenState extends State<filterscreen> {
                           });
                         },
                         //show selected item
-                        selectedItem: interest == "" ? "Profession" : interest),
+                        selectedItem: interest == "" ? "Profession" : interest,
+                      ),
+                    ),
                   ),
                   smallgap,
                   smallgap,
-                  secondrybutton(
-                      title: "Search",
-                      onpressed: () {
-                        var data = {"radius": selectedKm, "interest": interest};
-                        Navigator.pop(context, data);
-                      })
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: primarybutton(
+                        title: "Search",
+                        onpressed: () {
+                          var data = {
+                            "radius": selectedKm,
+                            "interest": interest
+                          };
+                          Navigator.pop(context, data);
+                        }),
+                  )
                 ],
               ),
             ),
