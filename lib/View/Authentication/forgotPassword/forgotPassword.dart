@@ -1,22 +1,17 @@
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lhere/Constants/constants.dart';
-import 'package:lhere/View/Authentication/Signup/signup.dart';
-import 'package:lhere/View/Homescreen/menu.dart';
-import 'package:lhere/View/Profileanaylsis/Introscreen.dart';
-import 'package:lhere/View/Profileanaylsis/profiling.dart';
 import 'package:lhere/Widgets/primarybutton.dart';
 import 'package:lhere/Widgets/secondrybutton.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../Controller/signinController.dart';
 import '../Sigin/signin.dart';
 
 class forgotPassword extends StatefulWidget {
+  const forgotPassword({Key? key}) : super(key: key);
+
   @override
   _forgotPasswordState createState() => _forgotPasswordState();
 }
@@ -33,7 +28,7 @@ class _forgotPasswordState extends State<forgotPassword> {
     String p =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-    RegExp regExp = new RegExp(p);
+    RegExp regExp = RegExp(p);
 
     return regExp.hasMatch(em);
   }
@@ -64,7 +59,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                       style: primarytext,
                     )),
                   ),
-                  Container(
+                  SizedBox(
                     width: width * 0.9,
                     height: height * .35,
                     child: Image.asset(
@@ -79,14 +74,14 @@ class _forgotPasswordState extends State<forgotPassword> {
                         email = v;
                       },
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.perm_identity),
+                          prefixIcon: const Icon(Icons.perm_identity),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(16.0),
                             ),
                           ),
                           filled: true,
-                          hintStyle: new TextStyle(color: Colors.grey[600]),
+                          hintStyle: TextStyle(color: Colors.grey[600]),
                           hintText: "Deine E-Mail",
                           fillColor: Colors.white),
                     ),
@@ -112,7 +107,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                                 return AlertDialog(
                                   title: const Text("Passwort zurücksetzen"),
                                   content:
-                                      new Text("Sie erhalten bald eine E-Mail"),
+                                      const Text("Sie erhalten bald eine E-Mail"),
                                   actions: <Widget>[
                                     TextButton(
                                       child: const Text("OK"),
@@ -121,7 +116,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                                           context,
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
-                                                login(),
+                                                const login(),
                                           ),
                                           (route) =>
                                               false, //if you want to disable back feature set to false
@@ -140,12 +135,12 @@ class _forgotPasswordState extends State<forgotPassword> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: new Text("Alert"),
-                                    content: new Text(
+                                    title: const Text("Alert"),
+                                    content: const Text(
                                         "Für diese E-Mail wurde kein Benutzer gefunden"),
                                     actions: <Widget>[
-                                      new TextButton(
-                                        child: new Text("OK"),
+                                      TextButton(
+                                        child: const Text("OK"),
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },

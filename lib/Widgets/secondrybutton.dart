@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lhere/Constants/constants.dart';
 
 class secondrybutton extends StatelessWidget {
-  secondrybutton({@required this.title,  @required this.onpressed});
+  secondrybutton({Key? key, @required this.title,  @required this.onpressed}) : super(key: key);
   String? title;
   var onpressed;
 
@@ -17,17 +17,16 @@ class secondrybutton extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
         ),
         child: ElevatedButton(
-            child: Text(title.toString()),
             onPressed:onpressed,
 
 
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.black, //change text color of button
+            foregroundColor: Colors.black, backgroundColor: Colors.white, //change text color of button
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
           ),
+            child: Text(title.toString()),
         ));
   }
 

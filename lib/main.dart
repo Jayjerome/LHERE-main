@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:delayed_display/delayed_display.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lhere/Constants/constants.dart';
@@ -32,7 +31,7 @@ Future<void> main() async {
   runApp(MaterialApp(
       theme: ThemeData(
         //2
-        primaryColor: Color(0xffef801a),
+        primaryColor: const Color(0xffef801a),
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Montserrat',
         //3
@@ -40,8 +39,7 @@ Future<void> main() async {
 
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          primary: Color(0xffef801a), //change background color of button
-          onPrimary: Colors.white, //change text color of button
+          foregroundColor: Colors.white, backgroundColor: const Color(0xffef801a), //change text color of button
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -49,10 +47,12 @@ Future<void> main() async {
       ),
       debugShowCheckedModeBanner: false,
       title: "LEHRE YOUR FUTURE",
-      home: MyApp()));
+      home: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MAppState createState() => _MAppState();
 }
@@ -69,17 +69,17 @@ class _MAppState extends State<MyApp> {
     var duration = const Duration(seconds: 4);
     return Timer(duration, () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String loggin = await prefs.getString("loggedin").toString();
+      String loggin = prefs.getString("loggedin").toString();
 
       if (loggin != "yes") {
         Navigator.pushReplacement(
           context,
-          new MaterialPageRoute(builder: (context) => onboarding()),
+          MaterialPageRoute(builder: (context) => const onboarding()),
         );
       } else {
         Navigator.pushReplacement(
           context,
-          new MaterialPageRoute(builder: (context) => menu()),
+          MaterialPageRoute(builder: (context) => const menu()),
         );
       }
     });
@@ -93,12 +93,12 @@ class _MAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           mediumgap,
-          Container(
+          SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Image.asset("assets/mainlogo.jpg")),
           DelayedDisplay(
-            delay: Duration(seconds: 1),
-            child: Container(
+            delay: const Duration(seconds: 1),
+            child: SizedBox(
                 width: 250, height: 150, child: Image.asset("assets/load.gif")),
           ),
         ],

@@ -2,18 +2,15 @@ import 'dart:async';
 
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lhere/Constants/constants.dart';
 import 'package:lhere/Controller/updatetasks.dart';
-import 'package:lhere/View/Authentication/Sigin/signin.dart';
-import 'package:lhere/View/Profileanaylsis/profiling.dart';
 
 import '../Homescreen/menu.dart';
 
 class profilingcompleted extends StatefulWidget {
 String skill;
 
-profilingcompleted(this.skill);
+profilingcompleted(this.skill, {Key? key}) : super(key: key);
 
   @override
   _profilingcompletedState createState() => _profilingcompletedState();
@@ -27,7 +24,7 @@ updatetasks up=updatetasks();
   @override
   void initState() {
     // TODO: implement initState
-    up.updatethings("${widget.skill}");
+    up.updatethings(widget.skill);
     starttimer();
     super.initState();
   }
@@ -40,7 +37,7 @@ updatetasks up=updatetasks();
 
       Navigator.pushReplacement(
         context,
-        new MaterialPageRoute(builder: (context) => menu()),
+        MaterialPageRoute(builder: (context) => const menu()),
       );
 
     });
@@ -55,14 +52,14 @@ updatetasks up=updatetasks();
             children: [
 
               DelayedDisplay(
-                  delay: Duration(seconds: 1),
+                  delay: const Duration(seconds: 1),
                   child: Text(
                     "Analysis Completed",textAlign:TextAlign.center,
                     style:Secondtext,
                   )),
               DelayedDisplay(
-                delay:Duration(seconds:2),
-                child: Container(
+                delay:const Duration(seconds:2),
+                child: SizedBox(
                   width:MediaQuery.of(context).size.width*0.9,
 
                   child: Image.asset(
@@ -71,8 +68,8 @@ updatetasks up=updatetasks();
                   ),),
               ),
               DelayedDisplay(
-                delay: Duration(seconds: 3),
-                child: Container(
+                delay: const Duration(seconds: 3),
+                child: SizedBox(
                     width: 250,
                     height:150,
                     child: Image.asset("assets/load.gif")),),

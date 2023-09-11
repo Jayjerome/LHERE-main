@@ -1,9 +1,7 @@
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lhere/Constants/constants.dart';
 import 'package:lhere/View/Authentication/Sigin/signin.dart';
-import 'package:lhere/View/Authentication/Signup/signup.dart';
 import 'package:lhere/Widgets/primarybutton.dart';
 
 class onboarding extends StatefulWidget {
@@ -23,12 +21,12 @@ class _onboardingState extends State<onboarding> {
         child: Stack(
           children: [
             DelayedDisplay(
-              delay: Duration(seconds: 1),
-              child: Container(
+              delay: const Duration(seconds: 1),
+              child: SizedBox(
                   width: width,
                   height: height,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                     child: Column(
                       children: [
                         mediumgap,
@@ -55,8 +53,8 @@ class _onboardingState extends State<onboarding> {
               left: 10,
               right: 10,
               child: DelayedDisplay(
-                delay: Duration(seconds: 2),
-                child: Container(
+                delay: const Duration(seconds: 2),
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: MediaQuery.of(context).size.height * 0.3,
                   child: Image.asset(
@@ -70,14 +68,14 @@ class _onboardingState extends State<onboarding> {
               left: 20,
               right: 20,
               child: DelayedDisplay(
-                delay: Duration(seconds: 3),
+                delay: const Duration(seconds: 3),
                 child: primarybutton(
                   title: "Lehrstelle suchen",
                   onpressed: () {
                     Navigator.pushReplacement(
                         context,
-                        new MaterialPageRoute(
-                          builder: (context) => login(),
+                        MaterialPageRoute(
+                          builder: (context) => const login(),
                         ));
                   },
                 ),

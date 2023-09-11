@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:delayed_display/delayed_display.dart';
@@ -14,14 +13,14 @@ import '../partone/partone.dart';
 class start extends StatefulWidget {
   String company;
 
-  start(this.company);
+  start(this.company, {Key? key}) : super(key: key);
 
   @override
   _startState createState() => _startState();
 }
 
 class _startState extends State<start> {
-  final Duration initialDelay = Duration(seconds: 1);
+  final Duration initialDelay = const Duration(seconds: 1);
   int count=0;
   late Timer _timer;
   int _start = 9;
@@ -61,8 +60,8 @@ class _startState extends State<start> {
   }
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
           (Timer timer) {
         if (_start == 0) {
@@ -90,7 +89,7 @@ class _startState extends State<start> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Center(
@@ -100,7 +99,7 @@ class _startState extends State<start> {
 
                             Positioned(
                               top:200,
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Align(
 
@@ -119,7 +118,7 @@ class _startState extends State<start> {
 
                                       ))),
                                       Container(
-                                        margin:EdgeInsets.only(top:20),
+                                        margin:const EdgeInsets.only(top:20),
                                         child: AnimatedTextKit( totalRepeatCount: 1,
 
                                           animatedTexts: [
@@ -141,7 +140,7 @@ class _startState extends State<start> {
                                         ),
                                       ),
                                       DelayedDisplay(
-                                        delay: Duration(seconds: 8),
+                                        delay: const Duration(seconds: 8),
                                         child: Text(
                                           "Best of Luck",textAlign:TextAlign.center,
                                           style:GoogleFonts.pacifico(

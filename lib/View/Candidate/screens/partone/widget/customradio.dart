@@ -7,13 +7,13 @@ class MyRadioListTile<T> extends StatelessWidget {
   final Widget? title;
   final ValueChanged<T?> onChanged;
 
-  const MyRadioListTile({
+  const MyRadioListTile({Key? key, 
     required this.value,
     required this.groupValue,
     required this.onChanged,
     required this.leading,
     this.title,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,11 @@ class MyRadioListTile<T> extends StatelessWidget {
       onTap: () => onChanged(value),
       child: Container(
 
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
             _customRadioButton,
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             if (title != null) title,
           ],
         ),
@@ -37,7 +37,7 @@ class MyRadioListTile<T> extends StatelessWidget {
   Widget get _customRadioButton {
     final isSelected = value == groupValue;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: isSelected ? Colors.blue : null,
         borderRadius: BorderRadius.circular(4),

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lhere/Controller/getcompaniesController.dart';
-import 'package:lhere/Model/companyModel.dart';
-import 'package:lhere/View/Homescreen/Pages/emailform.dart';
-import 'package:lhere/Widgets/primarybutton.dart';
-import 'package:lhere/Widgets/secondrybutton.dart';
 
 import '../../../../Constants/constants.dart';
 
@@ -12,7 +7,7 @@ class companycontentDetail extends StatefulWidget {
   var data;
 
 
-  companycontentDetail(this.data);
+  companycontentDetail(this.data, {Key? key}) : super(key: key);
 
   @override
   _companycontentDetailState createState() => _companycontentDetailState();
@@ -32,7 +27,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
     return Scaffold(
       body:Stack(
         children: [
-          Container(
+          SizedBox(
             width: wsize,
             height: hsize,
             child:Column(
@@ -55,7 +50,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
                               children: [
                                 IconButton(onPressed:(){
                                   Navigator.pop(context);
-                                }, icon:Icon(Icons.arrow_back_ios,color:Colors.white,)),
+                                }, icon:const Icon(Icons.arrow_back_ios,color:Colors.white,)),
 
                                 Text("Company Details",style:GoogleFonts.alata(color:Colors.white,fontWeight:FontWeight.bold,fontSize: MediaQuery.of(context).size.height*0.035),),
                               ],
@@ -108,7 +103,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
 
 
 
-                Container(
+                SizedBox(
                   width: wsize*0.9,
                   child:Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +113,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
                         crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: [
-                          SizedBox(height:28,),
+                          const SizedBox(height:28,),
                           Text(
                             "About",
                             style: TextStyle(
@@ -126,7 +121,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
 
                               fontWeight: FontWeight.bold,
                             ), ),
-                          SizedBox(height:3,),
+                          const SizedBox(height:3,),
                           Text(
                             "${widget.data.about}",
                             style: TextStyle(
@@ -149,7 +144,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
 
                               fontWeight: FontWeight.bold,
                             ), ),
-                          SizedBox(height:3,),
+                          const SizedBox(height:3,),
                           Text(
                            "${widget.data.email}",
                             style: TextStyle(

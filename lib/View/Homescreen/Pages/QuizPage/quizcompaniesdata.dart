@@ -3,13 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:lhere/Model/companyModel.dart';
 import 'package:lhere/View/Homescreen/Pages/QuizPage/compnycontent.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../Constants/constants.dart';
 import '../../../../Controller/getcompaniesController.dart';
-import '../../../../Widgets/primarybutton.dart';
-import '../../../../Widgets/secondrybutton.dart';
-import '../../../Candidate/screens/introduction/startingscreen.dart';
 
 class quizpreparatioj extends StatefulWidget {
   const quizpreparatioj({Key? key}) : super(key: key);
@@ -33,7 +29,7 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
     setState(() {
       compnylist = listq;
       log(compnylist.length.toString());
-      if (compnylist.length == 0) {
+      if (compnylist.isEmpty) {
         loading = false;
         nodata = true;
       } else {
@@ -68,12 +64,12 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(Icons.arrow_back)),
+                      child: const Icon(Icons.arrow_back)),
                   Text(
                     "Quiz Preparation",
                     style: primarytext,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
                   ),
@@ -98,20 +94,20 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20)),
-                              margin: EdgeInsets.all(5),
-                              padding: EdgeInsets.all(5),
+                              margin: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     height: 80,
                                     child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
+                                        borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(7),
                                             topRight: Radius.circular(7)),
                                         child: FadeInImage(
                                           placeholder:
-                                              AssetImage("assets/place.png"),
+                                              const AssetImage("assets/place.png"),
                                           image: NetworkImage(
                                               "$baseUrl/${compnylist[index].image}"),
                                           fit: BoxFit.cover,
@@ -128,7 +124,7 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
                                     child: Container(
                                       child: Text(
                                         '${compnylist[index].name}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -144,7 +140,7 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
                           ),
                         );
                       },
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 1,
                         crossAxisSpacing: 5,
@@ -152,15 +148,15 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
                       ),
                     )
                   : nodata == true
-                      ? Center(
-                          child: Container(
+                      ? const Center(
+                          child: SizedBox(
                               width: 250,
                               height: 150,
                               child: Text("No Results")))
                       : Center(
                           child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 128.0),
-                          child: Container(
+                          child: SizedBox(
                               width: 250,
                               height: 150,
                               child: Image.asset("assets/load.gif")),

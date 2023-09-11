@@ -1,15 +1,11 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lhere/Constants/constants.dart';
 
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../View/Authentication/Sigin/signin.dart';
 
 class updatetasks {
 
@@ -19,7 +15,7 @@ class updatetasks {
   updatethings(String skill) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("skill", skill);
-    String email = await prefs.getString("email").toString();
+    String email = prefs.getString("email").toString();
     var bodydata = {
       "skill": skill,
       "email": email
@@ -33,7 +29,7 @@ class updatetasks {
   updatepoints(String points) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("points", points);
-    String email = await prefs.getString("email").toString();
+    String email = prefs.getString("email").toString();
     var bodydata = {
       "points": points,
       "email": email

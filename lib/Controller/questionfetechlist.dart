@@ -1,15 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:lhere/Model/companyModel.dart';
-import 'package:lhere/Model/postModel.dart';
 import 'package:lhere/Model/questionsdata.dart';
 import 'package:lhere/Model/quizDetail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Constants/constants.dart';
 

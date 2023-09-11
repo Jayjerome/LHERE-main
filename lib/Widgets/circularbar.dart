@@ -6,7 +6,7 @@ class circlularbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: 100,
         height:100,
 

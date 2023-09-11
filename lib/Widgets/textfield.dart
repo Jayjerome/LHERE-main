@@ -2,18 +2,18 @@
 import 'package:flutter/material.dart';
 
 class primarybutton extends StatelessWidget {
-  primarybutton({@required this.title,  @required this.onpressed});
+  primarybutton({Key? key, @required this.title,  @required this.onpressed}) : super(key: key);
   String? title;
   var onpressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 40,
         child: ElevatedButton(
-            child: Text(title.toString()),
-            onPressed:onpressed
+            onPressed:onpressed,
+            child: Text(title.toString())
 
 
           // style: ElevatedButton.styleFrom(

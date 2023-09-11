@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,17 +10,17 @@ var primarytext =
 
 var Secondtext = GoogleFonts.pacifico(fontSize: 30.0, color: Colors.orange);
 var questionstext = GoogleFonts.share(fontSize: 40, color: Colors.black87);
-var secondrytext = TextStyle(fontSize: 14, color: Color(0xff808077));
-var biggap = SizedBox(
+var secondrytext = const TextStyle(fontSize: 14, color: Color(0xff808077));
+var biggap = const SizedBox(
   height: 50,
 );
-var mediumgap = SizedBox(
+var mediumgap = const SizedBox(
   height: 30,
 );
-var smallgap = SizedBox(
+var smallgap = const SizedBox(
   height: 15,
 );
-var primarycolor = Color(0xffef801a);
+var primarycolor = const Color(0xffef801a);
 
 var boxdecor = const BoxDecoration(
   //DecorationImage
