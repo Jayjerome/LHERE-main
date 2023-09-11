@@ -20,7 +20,8 @@ class filterscreen extends StatefulWidget {
 }
 
 class _filterscreenState extends State<filterscreen> {
-  String city = "";
+  TextEditingController textEditingController = TextEditingController();
+  TextEditingController professionEditingController = TextEditingController();
   String interest = "";
   bool emailok = false;
   String email = "";
@@ -57,7 +58,7 @@ class _filterscreenState extends State<filterscreen> {
                           },
                           child: Icon(Icons.arrow_back)),
                       Text(
-                        "FilterScreen",
+                        "Suchfilter",
                         style: primarytext,
                       ),
                       Icon(
@@ -67,7 +68,7 @@ class _filterscreenState extends State<filterscreen> {
                     ],
                   )),
                   mediumgap,
-                  Text("Select Radius"),
+                  Text("Entfernung auswählen"),
                   mediumgap,
                   Column(
                     children: [
@@ -137,45 +138,76 @@ class _filterscreenState extends State<filterscreen> {
                       )
                     ],
                   ),
-                  mediumgap,
-                  Text("Select Profession"),
                   smallgap,
-                  SizedBox(
-                    height: 65,
-                    child: DropdownSearch<String>(
-
-                        //mode of dropdown
-                        mode: Mode.MENU,
-
-                        //to show search box
-                        showSearchBox: true,
-                        dropdownSearchDecoration: InputDecoration(
-                            prefixIcon: Icon(Icons.scatter_plot_sharp),
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(16.0),
-                              ),
-                            )),
-                        //list of dropdown items
-                        items: [
-                          "Technology",
-                          "Office",
-                          "Kitchen",
-                        ],
-                        onChanged: (v) {
-                          setState(() {
-                            interest = v.toString();
-                          });
-                        },
-                        //show selected item
-                        selectedItem: interest == "" ? "Profession" : interest),
+                  smallgap,
+                  TextField(
+                    controller: professionEditingController,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[600]),
+                        hintText: "Beruf",
+                        fillColor: Colors.white),
                   ),
+                  mediumgap,
+                  TextField(
+                    controller: textEditingController,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.location_city),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[600]),
+                        hintText: "Stadt",
+                        fillColor: Colors.white),
+                  ),
+                  // smallgap,
+                  // Text("Beruf auswählen"),
+                  // smallgap,
+                  // SizedBox(
+                  //   height: 65,
+                  //   child: DropdownSearch<String>(
+                  //
+                  //       //mode of dropdown
+                  //       mode: Mode.MENU,
+                  //
+                  //       //to show search box
+                  //       showSearchBox: true,
+                  //       dropdownSearchDecoration: InputDecoration(
+                  //           prefixIcon: Icon(Icons.scatter_plot_sharp),
+                  //           border: const OutlineInputBorder(
+                  //             borderRadius: BorderRadius.all(
+                  //               Radius.circular(16.0),
+                  //             ),
+                  //           )),
+                  //       //list of dropdown items
+                  //       items: [
+                  //         "Technik",
+                  //         "Büro",
+                  //         "Küche",
+                  //       ],
+                  //       onChanged: (v) {
+                  //         setState(() {
+                  //           interest = v.toString();
+                  //         });
+                  //       },
+                  //       //show selected item
+                  //       selectedItem: interest == "" ? "Beruf" : interest),
+                  // ),
                   smallgap,
                   smallgap,
                   secondrybutton(
-                      title: "Search",
+                      title: "Lehrstellensuche",
                       onpressed: () {
-                        var data = {"radius": selectedKm, "interest": interest};
+                        var data = {"city":textEditingController.text, "radius": selectedKm, "interest": professionEditingController.text};
                         Navigator.pop(context, data);
                       })
                 ],

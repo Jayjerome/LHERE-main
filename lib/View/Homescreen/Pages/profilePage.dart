@@ -83,7 +83,7 @@ getuserdata();
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("My Profile",style:GoogleFonts.alata(color:Colors.white,fontWeight:FontWeight.bold,fontSize: MediaQuery.of(context).size.height*0.035),),
+                            Text("Mein Profil",style:GoogleFonts.alata(color:Colors.white,fontWeight:FontWeight.bold,fontSize: MediaQuery.of(context).size.height*0.035),),
                             IconButton(onPressed:(){
 
 
@@ -136,7 +136,7 @@ getuserdata();
                       children: [
 
                         Text(
-                          "Earn Points",
+                          "Punkte verdient",
                           style: TextStyle(
                             fontSize: 15,
 
@@ -196,7 +196,7 @@ getuserdata();
                       children: [
 
                         Text(
-                          "Interest",
+                          "Interesse",
                           style: TextStyle(
                             fontSize: 15,
 
@@ -226,7 +226,7 @@ getuserdata();
                       children: [
 
                         Text(
-                          "City",
+                          "Stadt",
                           style: TextStyle(
                             fontSize: 15,
 

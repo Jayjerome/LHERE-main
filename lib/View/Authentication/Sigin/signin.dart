@@ -146,7 +146,7 @@ class _loginState extends State<login> {
                   Center(
                     child: Container(
                         child: Text(
-                      "ANMWELDUNG",
+                      "ANMELDUNG",
                       style: primarytext,
                     )),
                   ),

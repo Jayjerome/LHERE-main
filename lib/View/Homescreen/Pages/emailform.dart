@@ -31,7 +31,6 @@ class _emailformState extends State<emailform> {
   String address = "";
   String confirmpassword = "";
   String fullname = "";
-  String baseUrl="https://quizzinger.com/there/company/images";
 
 
   String city = "";
@@ -93,7 +92,7 @@ class _emailformState extends State<emailform> {
                           borderRadius:BorderRadius.only(topLeft:Radius.circular(7),topRight:Radius.circular(7)),
                           child:FadeInImage.assetNetwork(
                             placeholder: "assets/place.png",
-                            image: "$baseUrl/${widget.image}",
+                            image: "https://company.lehreyourfuture.com/images/${widget.image}",
                             fit: BoxFit.cover,
 
                           ))

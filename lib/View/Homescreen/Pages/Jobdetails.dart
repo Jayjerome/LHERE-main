@@ -66,7 +66,7 @@ class _jobdetailState extends State<jobdetail> {
                                     color: Colors.white,
                                   )),
                               Text(
-                                "Job Details",
+                                "Jobdetails",
                                 style: GoogleFonts.alata(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class _jobdetailState extends State<jobdetail> {
                               borderRadius: BorderRadius.circular(75),
                               child: FadeInImage.assetNetwork(
                                 placeholder: "assets/place.png",
-                                image: "$baseUrl/${widget.data.image}",
+                                image: "https://company.lehreyourfuture.com/images/${widget.data.image}",
                                 fit: BoxFit.cover,
                               )),
                         ),
@@ -108,87 +108,96 @@ class _jobdetailState extends State<jobdetail> {
               ),
               mediumgap,
               smallgap,
-              Text(
-                "${widget.data.title}",
-                style: TextStyle(
-                  fontSize: hsize * 0.024,
-                  fontWeight: FontWeight.bold,
+              smallgap,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  "${widget.data.title}",
+                  style: TextStyle(
+                    fontSize: hsize * 0.024,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               mediumgap,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      if (desc) {
-                        setState(() {
-                          desc = false;
-                          company = true;
-                        });
-                      } else {
-                        setState(() {
-                          desc = true;
-                          company = false;
-                        });
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: desc ? primarycolor : Colors.black12),
-                          color: desc ? primarycolor : Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10))),
-                      width: wsize * 0.45,
-                      child: Center(
-                          child: Text(
-                        "Description",
-                        style: TextStyle(
-                            color: desc ? Colors.white : Colors.black87),
-                      )),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (desc) {
+                          setState(() {
+                            desc = false;
+                            company = true;
+                          });
+                        } else {
+                          setState(() {
+                            desc = true;
+                            company = false;
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: desc ? primarycolor : Colors.black12),
+                            color: desc ? primarycolor : Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        width: wsize * 0.45,
+                        child: Center(
+                            child: Text(
+                          "Beschreibung",
+                          style: TextStyle(
+                              color: desc ? Colors.white : Colors.black87),
+                        )),
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (company) {
-                        setState(() {
-                          company = false;
-                          desc = true;
-                        });
-                      } else {
-                        setState(() {
-                          desc = false;
-                          company = true;
-                        });
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: company ? primarycolor : Colors.black12),
-                          color: company ? primarycolor : Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10))),
-                      width: wsize * 0.45,
-                      child: Center(
-                          child: Text(
-                        "Company",
-                        style: TextStyle(
-                            color: company ? Colors.white : Colors.black87),
-                      )),
+                    GestureDetector(
+                      onTap: () {
+                        if (company) {
+                          setState(() {
+                            company = false;
+                            desc = true;
+                          });
+                        } else {
+                          setState(() {
+                            desc = false;
+                            company = true;
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: company ? primarycolor : Colors.black12),
+                            color: company ? primarycolor : Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        width: wsize * 0.45,
+                        child: Center(
+                            child: Text(
+                          "Unternehmen",
+                          style: TextStyle(
+                              color: company ? Colors.white : Colors.black87),
+                        )),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Visibility(
                   visible: desc,
                   child: Container(
                     width: wsize * 0.9,
+                    margin: EdgeInsets.only(bottom: 100),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -200,7 +209,7 @@ class _jobdetailState extends State<jobdetail> {
                               height: 28,
                             ),
                             Text(
-                              "About Opportunity",
+                              "Über Gelegenheit",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -223,7 +232,7 @@ class _jobdetailState extends State<jobdetail> {
                           children: [
                             smallgap,
                             Text(
-                              "Salary",
+                              "Gehalt",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -247,6 +256,8 @@ class _jobdetailState extends State<jobdetail> {
                   visible: company,
                   child: Container(
                     width: wsize * 0.9,
+                    margin: EdgeInsets.only(bottom: 100),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -258,7 +269,7 @@ class _jobdetailState extends State<jobdetail> {
                               height: 28,
                             ),
                             Text(
-                              "Company Name",
+                              "Name der Firma",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -281,7 +292,7 @@ class _jobdetailState extends State<jobdetail> {
                           children: [
                             smallgap,
                             Text(
-                              "About Company",
+                              "Über das Unternehmen",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -308,7 +319,7 @@ class _jobdetailState extends State<jobdetail> {
               left: 15,
               right: 15,
               child: secondrybutton(
-                title: "Apply for job",
+                title: "Für einen Job bewerben",
                 onpressed: () {
                   Navigator.push(
                       context,

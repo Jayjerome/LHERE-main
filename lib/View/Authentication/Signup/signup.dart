@@ -305,7 +305,7 @@ class _signupState extends State<signup> {
         password == confirmpassword &&
         city != "" &&
         emailok &&
-        email != "" && isStrongPassword(password)) {
+        email != "") {
       setState(() {
         showSpinner = true;
       });

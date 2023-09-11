@@ -96,21 +96,24 @@ class questionafetchlist
 
 
   }
-  getuquizdata(BuildContext context) async {
+  Future<quizdetailModel> getuquizdata(BuildContext context) async {
 
     var url=Uri.parse(quizdetailUrl);
 
     var response= await http.get(url);
 
 
-    log(response.body);
+    log('Response body ${response.body}');
 
-    var userdata = await json.decode(response.body);
+    if(response.body != "0 results[]"){
+      var userdata = await json.decode(response.body);
 
-    log(response.body);
+      log(response.body);
 
-    quizdetailModel userm = quizdetailModel.fromJson(userdata["data"][0]);
-    return userm;
+      quizdetailModel userm = quizdetailModel.fromJson(userdata["data"][0]);
+      return userm;
+    }
+    throw Exception();
 
   }
 

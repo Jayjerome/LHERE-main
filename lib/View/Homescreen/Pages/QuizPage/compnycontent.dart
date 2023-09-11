@@ -22,7 +22,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
 
   bool desc=true;
   bool company=false;
-  String baseUrl="https://quizzinger.com/there/company/images";
+  String baseUrl="https://company.lehreyourfuture.com/images";
 
 
   @override
@@ -79,14 +79,16 @@ class _companycontentDetailState extends State<companycontentDetail> {
                                 shape:BoxShape.circle,
                                 border:Border.all(color:Colors.white,width:5)
                             ),
-                            child: ClipRRect(
+                            child: widget.data.image != "" ?
+                            ClipRRect(
                                 borderRadius:BorderRadius.circular(75),
                                 child:FadeInImage.assetNetwork(
                                   placeholder: "assets/place.png",
                                   image: "$baseUrl/${widget.data.image}",
                                   fit: BoxFit.cover,
-
-                                )),
+                                )) : ClipRRect(
+                                borderRadius:BorderRadius.circular(75),
+                                child:Image.asset("assets/place.png")),
                           ),
                         ),
 
@@ -95,6 +97,7 @@ class _companycontentDetailState extends State<companycontentDetail> {
                   ),
                 ),
                 mediumgap,smallgap,
+                mediumgap,
                 Text(
                   "${widget.data.name}",
                   style: TextStyle(

@@ -37,7 +37,7 @@ class _QuizscreenState extends State<Quizscreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Quiz",
+                            "Tolle Preise gewinnen",
                             style: GoogleFonts.alata(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class _QuizscreenState extends State<Quizscreen> {
             height: 20,
           ),
           Text(
-            "Are you Bored",
+            "Teste dein Wissen und gewinne",
             textAlign: TextAlign.center,
             style: Secondtext,
           ),
@@ -69,7 +69,7 @@ class _QuizscreenState extends State<Quizscreen> {
           ),
           Container(
             margin: EdgeInsets.only(top: 10, left: 45, right: 45),
-            child: secondrybutton(title: "Quiz Screen", onpressed: () {
+            child: secondrybutton(title: "Quiz", onpressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => quizdesc()));
             }),
