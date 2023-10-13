@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lhere/Controller/getcompaniesController.dart';
 import 'package:lhere/Model/companyModel.dart';
-import 'package:lhere/View/Homescreen/Pages/emailform.dart';
 import 'package:lhere/Widgets/primarybutton.dart';
 import 'package:lhere/Widgets/secondrybutton.dart';
 
 import '../../../Constants/constants.dart';
+import 'email_form.dart';
 
 class jobdetail extends StatefulWidget {
   var data;

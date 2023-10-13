@@ -59,7 +59,7 @@ class _menuState extends State<menu> {
           ],
         ),
         body: _selectedIndex == 0
-            ? const Homescreen()
+            ? const homescreen()
             : _selectedIndex == 1
                 ? const Quizscreen()
                 : const profilescren());
