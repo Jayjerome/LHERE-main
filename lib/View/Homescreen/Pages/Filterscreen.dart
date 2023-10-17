@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -44,29 +42,29 @@ class _filterscreenState extends State<filterscreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(Icons.arrow_back)),
-                      Text(
-                        "Suchfilter",
-                        style: primarytext,
-                      ),
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ],
-                  )),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.arrow_back)),
+                          Text(
+                            "Suchfilter",
+                            style: primarytext,
+                          ),
+                          Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ],
+                      )),
                   mediumgap,
                   Text("Entfernung auswählen"),
                   mediumgap,
@@ -90,7 +88,7 @@ class _filterscreenState extends State<filterscreen> {
                           activeTickMarkColor: Colors.black,
                           inactiveTickMarkColor: Colors.white,
                           valueIndicatorShape:
-                              const PaddleSliderValueIndicatorShape(),
+                          const PaddleSliderValueIndicatorShape(),
                           valueIndicatorColor: Colors.black,
                           valueIndicatorTextStyle: const TextStyle(
                             color: Colors.white,

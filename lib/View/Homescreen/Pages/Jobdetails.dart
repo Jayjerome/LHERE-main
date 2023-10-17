@@ -20,7 +20,6 @@ class jobdetail extends StatefulWidget {
 class _jobdetailState extends State<jobdetail> {
   bool desc = true;
   bool company = false;
-  String baseUrl = "https://quizzinger.com/there/company/images";
   comapnyModel companydata = comapnyModel();
   getcompaniesController companyx = getcompaniesController();
 
@@ -49,7 +48,7 @@ class _jobdetailState extends State<jobdetail> {
                 color: primarycolor,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      top: 35, left: 0, right: 0, bottom: 20),
+                      top: 30, left: 0, right: 0, bottom: 20),
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
@@ -97,7 +96,7 @@ class _jobdetailState extends State<jobdetail> {
                               borderRadius: BorderRadius.circular(75),
                               child: FadeInImage.assetNetwork(
                                 placeholder: "assets/place.png",
-                                image: "https://company.lehreyourfuture.com/images/${widget.data.image}",
+                                image: "${widget.data.image}",
                                 fit: BoxFit.cover,
                               )),
                         ),
@@ -209,7 +208,7 @@ class _jobdetailState extends State<jobdetail> {
                               height: 28,
                             ),
                             Text(
-                              "Über Gelegenheit",
+                              "Stellenbeschreibung",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -269,7 +268,7 @@ class _jobdetailState extends State<jobdetail> {
                               height: 28,
                             ),
                             Text(
-                              "Name der Firma",
+                              "Unternehmen",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -292,7 +291,7 @@ class _jobdetailState extends State<jobdetail> {
                           children: [
                             smallgap,
                             Text(
-                              "Über das Unternehmen",
+                              "Stellenbeschreibung",
                               style: TextStyle(
                                 fontSize: hsize * 0.022,
                                 fontWeight: FontWeight.bold,
@@ -319,7 +318,7 @@ class _jobdetailState extends State<jobdetail> {
               left: 15,
               right: 15,
               child: secondrybutton(
-                title: "Für einen Job bewerben",
+                title: "Bewerben oder Schnuppern",
                 onpressed: () {
                   Navigator.push(
                       context,

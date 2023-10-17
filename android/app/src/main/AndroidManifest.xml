@@ -11,6 +11,7 @@
     <application
         android:label="lhere"
         android:name="${applicationName}"
+        tools:node="replace"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

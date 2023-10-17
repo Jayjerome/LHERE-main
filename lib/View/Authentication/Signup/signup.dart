@@ -1,5 +1,5 @@
-import 'dart:developer';
-import 'package:geocoding/geocoding.dart';
+// import 'package:geocoding/geocoding.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,18 +45,18 @@ class _signupState extends State<signup> {
     try {
       var position = await getCurrentPosition();
 
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
-
-      setState(() {
-        long = position.longitude;
-        lat = position.latitude;
-        city = placemarks[0].locality.toString();
-        cityController.text = city;
-        log(city.toString());
-      });
+      // List<Placemark> placemarks = await placemarkFromCoordinates(
+      //   position.latitude,
+      //   position.longitude,
+      // );
+      //
+      // setState(() {
+      //   long = position.longitude;
+      //   lat = position.latitude;
+      //   city = placemarks[0].locality.toString();
+      //   cityController.text = city;
+      //   log(city.toString());
+      // });
     } catch (e) {
       print(e);
     }
@@ -174,39 +174,57 @@ class _signupState extends State<signup> {
                             child: const Icon(Icons.gps_fixed)),
                         fillColor: Colors.white),
                   ),
-                  // SizedBox(
-                  //   height: 60,
-                  //   child: DropdownSearch<String>(
-                  //
-                  //       //mode of dropdown
-                  //       mode: Mode.MENU,
-                  //
-                  //       //to show search box
-                  //       showSearchBox: true,
-                  //       dropdownSearchDecoration: InputDecoration(
-                  //           prefixIcon: Icon(Icons.location_on),
-                  //           border: const OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(16.0),
-                  //             ),
-                  //           )),
-                  //       //list of dropdown items
-                  //       items: [
-                  //         "Vienna",
-                  //         "Graz",
-                  //         "Linz",
-                  //         "Salzburg",
-                  //         "Innsbruck",
-                  //         "Villach"
-                  //       ],
-                  //       onChanged: (v) {
-                  //         setState(() {
-                  //           city = v.toString();
-                  //         });
-                  //       },
-                  //       //show selected item
-                  //       selectedItem: city == "" ? "City" : city),
-                  // ),
+                  smallgap,
+                  DropdownButtonFormField2(
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      fillColor: Colors.white,
+                      filled: true,
+                      suffixIcon: Icon(
+                          Icons.keyboard_arrow_down_sharp
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
+                      ),
+                    ),
+                    hint: Text('City'),
+                    isExpanded: true,
+                    icon: const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                    ),
+                    iconSize: 30,
+                    buttonHeight: 60,
+                    buttonPadding: const EdgeInsets.only(right: 10),
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    items: [
+                      "Vienna",
+                      "Graz",
+                      "Linz",
+                      "Salzburg",
+                      "Innsbruck",
+                      "Villach"
+                    ]
+                        .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                          item),
+                    ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        city = value.toString();
+                      });
+                    },
+                  ),
                   smallgap,
                   Container(
                     child: TextField(
@@ -333,7 +351,7 @@ class _signupState extends State<signup> {
       }
     }else {
       Fluttertoast.showToast(
-          msg: "PLease Check Credentials",
+          msg: "Please check credentials",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

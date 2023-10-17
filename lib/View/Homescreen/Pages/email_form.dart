@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,7 +8,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../Constants/constants.dart';
 import '../../../Widgets/circularbar.dart';
-import '../../../Widgets/primarybutton.dart';
 import '../../../Widgets/secondrybutton.dart';
 
 class emailform extends StatefulWidget {
@@ -115,38 +112,55 @@ class _emailformState extends State<emailform> {
                         fillColor: Colors.white),
                   ),
                   smallgap,
-                  SizedBox(
-                    height: 60,
-                    child: DropdownSearch<String>(
-
-                      //mode of dropdown
-                        mode: Mode.MENU,
-
-                        //to show search box
-                        showSearchBox: true,
-                        dropdownSearchDecoration: InputDecoration(
-                            prefixIcon: Icon(Icons.location_on),
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(16.0),
-                              ),
-                            )),
-                        //list of dropdown items
-                        items: [
-                          "Vienna",
-                          "Graz",
-                          "Linz",
-                          "Salzburg",
-                          "Innsbruck",
-                          "Villach"
-                        ],
-                        onChanged: (v) {
-                          setState(() {
-                            city = v.toString();
-                          });
-                        },
-                        //show selected item
-                        selectedItem: city == "" ? "City" : city),
+                  DropdownButtonFormField2(
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      fillColor: Colors.white,
+                      filled: true,
+                      suffixIcon: Icon(
+                          Icons.keyboard_arrow_down_sharp
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
+                      ),
+                    ),
+                    hint: Text('City'),
+                    isExpanded: true,
+                    icon: const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                    ),
+                    iconSize: 30,
+                    buttonHeight: 60,
+                    buttonPadding: const EdgeInsets.only(right: 10),
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    items: const [
+                      "Vienna",
+                      "Graz",
+                      "Linz",
+                      "Salzburg",
+                      "Innsbruck",
+                      "Villach"
+                    ]
+                        .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                          item),
+                    ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        city = value.toString();
+                      });
+                    },
                   ),
                   smallgap,
                   Container(
@@ -220,7 +234,7 @@ setState(() {
         showSpinner=false;
       });
       Fluttertoast.showToast(
-          msg: "PLease Check Credentials",
+          msg: "Please check credentials",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

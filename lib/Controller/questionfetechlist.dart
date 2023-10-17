@@ -69,7 +69,6 @@ class questionafetchlist
         }
         else
           {
-
           var userdata = await json.decode(response.body);
           var listofcompanies = userdata['data'];
 

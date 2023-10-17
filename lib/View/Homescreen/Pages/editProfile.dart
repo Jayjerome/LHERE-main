@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lhere/Controller/ediitprofileController.dart';
@@ -31,7 +30,6 @@ class _editProfileState extends State<editProfile> {
   bool emailok = false;
   String email = "";
   bool showSpinner = false;
-  var db=FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<void> getuserdata()
@@ -109,38 +107,55 @@ class _editProfileState extends State<editProfile> {
                         fillColor: Colors.white),
                   ),
                   smallgap,
-                  SizedBox(
-                    height: 60,
-                    child: DropdownSearch<String>(
-
-                      //mode of dropdown
-                        mode: Mode.MENU,
-
-                        //to show search box
-                        showSearchBox: true,
-                        dropdownSearchDecoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.location_on),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(16.0),
-                              ),
-                            )),
-                        //list of dropdown items
-                        items: const [
-                          "Vienna",
-                          "Graz",
-                          "Linz",
-                          "Salzburg",
-                          "Innsbruck",
-                          "Villach"
-                        ],
-                        onChanged: (v) {
-                          setState(() {
-                            city = v.toString();
-                          });
-                        },
-                        //show selected item
-                        selectedItem: city == "" ? "City" : city),
+                  DropdownButtonFormField2(
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      fillColor: Colors.white,
+                      filled: true,
+                      suffixIcon: Icon(
+                          Icons.keyboard_arrow_down_sharp
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderSide: BorderSide(width: 1, color: Colors.grey),
+                      ),
+                    ),
+                    hint: Text('City'),
+                    isExpanded: true,
+                    icon: const Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                    ),
+                    iconSize: 30,
+                    buttonHeight: 60,
+                    buttonPadding: const EdgeInsets.only(right: 10),
+                    dropdownDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    items: const [
+                      "Vienna",
+                      "Graz",
+                      "Linz",
+                      "Salzburg",
+                      "Innsbruck",
+                      "Villach"
+                    ]
+                        .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                          item),
+                    ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        city = value.toString();
+                      });
+                    },
                   ),
                   smallgap,
                   Container(

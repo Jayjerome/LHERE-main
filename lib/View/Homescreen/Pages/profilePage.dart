@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +20,6 @@ class _profilescrenState extends State<profilescren> {
   // var db=FirebaseFirestore.instance;
   // final FirebaseAuth auth = FirebaseAuth.instance;
   // final GoogleSignIn googleSignIn = new GoogleSignIn();
-  var db=FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   var name="";
 
@@ -73,7 +71,7 @@ getuserdata();
               width:wsize,
               color:primarycolor,
               child:Padding(
-                padding: const EdgeInsets.only(top:35,left:16,right:16,bottom:20),
+                padding: const EdgeInsets.only(top:60,left:16,right:16,bottom:20),
                 child: Stack(
 
                   clipBehavior: Clip.none, children: [
@@ -85,8 +83,6 @@ getuserdata();
                           children: [
                             Text("Mein Profil",style:GoogleFonts.alata(color:Colors.white,fontWeight:FontWeight.bold,fontSize: MediaQuery.of(context).size.height*0.035),),
                             IconButton(onPressed:(){
-
-
                               Navigator.push(
                                   context,
                                   new MaterialPageRoute(builder: (context) => editProfile(),

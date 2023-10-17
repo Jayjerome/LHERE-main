@@ -21,12 +21,12 @@ List ans=[];
   int i=0;
   List<questionsmodel>questionList=
   [
-    questionsmodel("Würdest du lieber gerne im Freien oder drinnen arbeiten?","Draußen", "Drinnen"),
-    questionsmodel("Möchtest Du einen eher theoretischen oder praktischen Beruf erlernen?","Praktischen Beruf", "Theoretischen Beruf"),
+    questionsmodel("Würdest du lieber gerne im Freien oder im Innenbereich arbeiten?","im Freien", "im Innenbereich"),
+    questionsmodel("Interessierst du dich eher für einen Beruf der praktisch (z.B. Technik) oder eher theoretisch (z.B. Büro) ist?","Praktischen Beruf", "Theoretischen Beruf"),
     questionsmodel("In meiner Arbeit will ich präsentieren, reden und überzeugen?","Eher wenig", "Stimmt"),
-    questionsmodel("Willst Du viel mit Kunden und Menschen arbeiten?","Ja sehr gerne ", "Eher nicht"),
-    questionsmodel("Willst Du viel mit dem Computer arbeiten?","Ja gerne","Eher nicht"),
-    questionsmodel("Willst Du einen handwerklichen Beruf erlernen?","Ja","Nein"),
+    questionsmodel("Arbeitest du gerne viel mit Menschen zusammen?","Ja sehr gerne ", "Eher nicht"),
+    questionsmodel("Arbeitest du gerne viel mit dem Tablet oder Computer?","Ja gerne","Eher nicht"),
+    questionsmodel("Kannst du dir vorstellen einen handwerklichen Beruf zu erlernen?","Ja","Nein"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ List ans=[];
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    Text(
-                     "Profile Analysis",textAlign:TextAlign.center,
+                     "Profilanalyse",textAlign:TextAlign.center,
                      style:Secondtext,
                    ),
                    mediumgap,

@@ -53,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => JobDetail(post)),
+                    MaterialPageRoute(builder: (context) => jobdetail(post)),
                   );
                 },
                 leading: SizedBox(

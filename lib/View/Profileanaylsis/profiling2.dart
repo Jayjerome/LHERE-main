@@ -30,7 +30,7 @@ class _profiling2State extends State<profiling2> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Profile Analysis",
+                      "Profilanalyse",
                       textAlign: TextAlign.center,
                       style: Secondtext,
                     ),

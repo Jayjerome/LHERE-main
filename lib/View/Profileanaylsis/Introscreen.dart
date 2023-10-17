@@ -45,7 +45,7 @@ class _introscreenState extends State<introscreen> {
               DelayedDisplay(
               delay: const Duration(seconds: 1),
               child: Text(
-                  "Profile Analysis",textAlign:TextAlign.center,
+                  "Profilanalyse",textAlign:TextAlign.center,
                   style:primarytext)),
           DelayedDisplay(
             delay: const Duration(seconds: 2),
