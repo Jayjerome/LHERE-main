@@ -30,11 +30,9 @@ Future<void> main() async {
   ));
   runApp(MaterialApp(
       theme: ThemeData(
-        //2
         primaryColor: const Color(0xffef801a),
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Montserrat',
-        //3
         visualDensity: VisualDensity.adaptivePlatformDensity,
 
         elevatedButtonTheme: ElevatedButtonThemeData(
