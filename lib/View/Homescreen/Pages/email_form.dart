@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:lhere/Controller/getcompaniesController.dart';
 import 'package:lhere/Controller/signupController.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -25,12 +27,13 @@ class emailform extends StatefulWidget {
 class _emailformState extends State<emailform> {
   final _auth = FirebaseAuth.instance;
   signupController signup = signupController();
-  String address = "";
+  String phoneNumber = "";
   String confirmpassword = "";
   String fullname = "";
-
-
+  TextEditingController cityController = TextEditingController();
+  var lat = 0.0, long = 0.0;
   String city = "";
+  String postalCode = "";
   bool emailok = false;
   String email = "";
   bool showSpinner = false;
@@ -41,6 +44,60 @@ class _emailformState extends State<emailform> {
     RegExp regExp = new RegExp(p);
 
     return regExp.hasMatch(em);
+  }
+
+  getLocation() async {
+    try {
+      var position = await getCurrentPosition();
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      setState(() {
+        long = position.longitude;
+        lat = position.latitude;
+        city = placemarks[0].locality.toString();
+        cityController.text = city;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<Position> getCurrentPosition() async {
+    // Test if location services are enabled.
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        // Permissions are denied forever, handle appropriately.
+        return Future.error(
+            Exception('Location permissions are permanently denied.'));
+      }
+
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error(Exception('Location permissions are denied.'));
+      }
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
@@ -74,7 +131,7 @@ class _emailformState extends State<emailform> {
                               child: Icon(Icons.arrow_back)),
                           SizedBox(width:10,),
                           Text(
-                            "Email to Company",
+                            "E-Mail an Unternehmen",
                             style: primarytext,
                           ),
 
@@ -108,59 +165,48 @@ class _emailformState extends State<emailform> {
                         ),
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey[600]),
-                        hintText: "Full Name",
+                        hintText: "Vorname Nachname",
                         fillColor: Colors.white),
                   ),
                   smallgap,
-                  DropdownButtonFormField2(
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      fillColor: Colors.white,
-                      filled: true,
-                      suffixIcon: Icon(
-                          Icons.keyboard_arrow_down_sharp
-                      ),
-                      contentPadding: EdgeInsets.zero,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(width: 1, color: Colors.grey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(width: 1, color: Colors.grey),
-                      ),
-                    ),
-                    hint: Text('City'),
-                    isExpanded: true,
-                    icon: const Icon(
-                      Icons.location_on,
-                      color: Colors.white,
-                    ),
-                    iconSize: 30,
-                    buttonHeight: 60,
-                    buttonPadding: const EdgeInsets.only(right: 10),
-                    dropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
-                    items: const [
-                      "Vienna",
-                      "Graz",
-                      "Linz",
-                      "Salzburg",
-                      "Innsbruck",
-                      "Villach"
-                    ]
-                        .map((item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                          item),
-                    ))
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        city = value.toString();
-                      });
+                  TextField(
+                    controller: cityController,
+                    onChanged: (v) {
+                      city = v;
                     },
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.location_city),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[600]),
+                        hintText: "Ort",
+                        suffixIcon: InkWell(
+                            onTap: () {
+                              getLocation();
+                            },
+                            child: const Icon(Icons.gps_fixed)),
+                        fillColor: Colors.white),
+                  ),
+                  smallgap,
+                  TextField(
+                    onChanged: (v) {
+                      postalCode = v;
+                    },
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.streetview),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        filled: true,
+                        hintStyle: TextStyle(color: Colors.grey[600]),
+                        hintText: "Postleitzahl",
+                        fillColor: Colors.white),
                   ),
                   smallgap,
                   Container(
@@ -178,7 +224,7 @@ class _emailformState extends State<emailform> {
                           ),
                           filled: true,
                           hintStyle: new TextStyle(color: Colors.grey[600]),
-                          hintText: "Your email",
+                          hintText: "Deine E-Mail",
                           fillColor: Colors.white),
                     ),
                   ),
@@ -186,11 +232,11 @@ class _emailformState extends State<emailform> {
                   Container(
                     child: TextField(
                       onChanged: (v) {
-                        address = v;
+                        phoneNumber = v;
                       },
                       maxLines:1,
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.pin_drop_rounded),
+                          prefixIcon: Icon(Icons.phone),
                           border: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
                               Radius.circular(16.0),
@@ -198,7 +244,7 @@ class _emailformState extends State<emailform> {
                           ),
                           filled: true,
                           hintStyle: new TextStyle(color: Colors.grey[600]),
-                          hintText: "Address",
+                          hintText: "Telefonnummer",
                           fillColor: Colors.white),
                     ),
                   ),
@@ -208,7 +254,7 @@ class _emailformState extends State<emailform> {
                   secondrybutton(
                       title: "Email",
                       onpressed: () {
-                       register();
+                        register();
                       })
                 ],
               ),
@@ -222,13 +268,13 @@ class _emailformState extends State<emailform> {
 
     if (fullname != ""&&
         city != "" &&
-        emailok && address!="" &&
+        emailok && phoneNumber!="" &&
         email != "") {
-setState(() {
-  showSpinner=true;
-});
+      setState(() {
+        showSpinner=true;
+      });
       getcompaniesController company=getcompaniesController();
-      company.sendemail(fullname, email, city, widget.email.toString(), address, context);
+      company.sendemail(fullname, email, city, widget.email.toString(), phoneNumber, context);
     } else {
       setState(() {
         showSpinner=false;
@@ -243,5 +289,5 @@ setState(() {
           fontSize: 16.0);
     }
   }
-  // savetodatabase() {}
+// savetodatabase() {}
 }

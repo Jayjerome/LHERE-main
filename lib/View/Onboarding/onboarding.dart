@@ -36,10 +36,10 @@ class _onboardingState extends State<onboarding> {
                         ),
                         smallgap,
                         Text(
-                          "Einfach per App oder Webseite rasch die passende LEHRSTELLE finden.\n"
+                          "Einfach per App oder Webseite rasch die passende LEHRSTELLE finden.\n\n"
                               "Wer möchte, kann zusätzlich in der APP durch unser Spiel "
                               "tolle Preise gewinnen und sein Wissen erweitern."
-                              "\nViel Freude und Erfolg bei der Lehrstellensuche!",
+                              "\n\nViel Freude und Erfolg bei der Lehrstellensuche!",
                           style: secondrytext,
                           textAlign: TextAlign.center,
                         )

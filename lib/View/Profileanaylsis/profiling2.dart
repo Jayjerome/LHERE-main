@@ -36,7 +36,7 @@ class _profiling2State extends State<profiling2> {
                     ),
                     mediumgap,
                     Text(
-                      "Which category do you like more?",
+                      "Welcher Bereich spricht dich am meisten an?",
                       style: questionstext,
                       textAlign: TextAlign.left,
                     ),
@@ -44,11 +44,11 @@ class _profiling2State extends State<profiling2> {
                     InkWell(
 
 
-                        onTap:(){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => profilingcompleted("Technology"),
-                              ));
+                      onTap:(){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => profilingcompleted("Technology"),
+                            ));
 
                       },
                       child: Container(
@@ -75,9 +75,9 @@ class _profiling2State extends State<profiling2> {
                                   color: Colors.black26),
                             ),
                             const Positioned(
-                              bottom:15,
+                                bottom:15,
                                 right:15,
-                                child: Text("Technical Work",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
+                                child: Text("Technik",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
                           ],
                         ),
                       ),
@@ -116,7 +116,7 @@ class _profiling2State extends State<profiling2> {
                             const Positioned(
                                 bottom:15,
                                 right:15,
-                                child: Text("Kitchen Work",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
+                                child: Text("Küche",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
                           ],
                         ),
                       ),
@@ -155,7 +155,7 @@ class _profiling2State extends State<profiling2> {
                             const Positioned(
                                 bottom:15,
                                 right:15,
-                                child: Text("Office Work",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
+                                child: Text("Büro",style:TextStyle(color:Colors.white,fontSize:20,fontWeight: FontWeight.bold),))
                           ],
                         ),
                       ),

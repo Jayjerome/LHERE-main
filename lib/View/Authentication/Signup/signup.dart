@@ -1,5 +1,6 @@
 // import 'package:geocoding/geocoding.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,18 +46,17 @@ class _signupState extends State<signup> {
     try {
       var position = await getCurrentPosition();
 
-      // List<Placemark> placemarks = await placemarkFromCoordinates(
-      //   position.latitude,
-      //   position.longitude,
-      // );
-      //
-      // setState(() {
-      //   long = position.longitude;
-      //   lat = position.latitude;
-      //   city = placemarks[0].locality.toString();
-      //   cityController.text = city;
-      //   log(city.toString());
-      // });
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      setState(() {
+        long = position.longitude;
+        lat = position.latitude;
+        city = placemarks[0].locality.toString();
+        cityController.text = city;
+      });
     } catch (e) {
       print(e);
     }
@@ -111,29 +111,29 @@ class _signupState extends State<signup> {
           child: SingleChildScrollView(
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.arrow_back)),
-                      Text(
-                        "Konto erstellen",
-                        style: primarytext,
-                      ),
-                      const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ],
-                  )),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(Icons.arrow_back)),
+                          Text(
+                            "Konto erstellen",
+                            style: primarytext,
+                          ),
+                          const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ],
+                      )),
                   mediumgap,
                   TextField(
                     onChanged: (v) {
@@ -174,57 +174,57 @@ class _signupState extends State<signup> {
                             child: const Icon(Icons.gps_fixed)),
                         fillColor: Colors.white),
                   ),
-                  smallgap,
-                  DropdownButtonFormField2(
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      fillColor: Colors.white,
-                      filled: true,
-                      suffixIcon: Icon(
-                          Icons.keyboard_arrow_down_sharp
-                      ),
-                      contentPadding: EdgeInsets.zero,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(width: 1, color: Colors.grey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        borderSide: BorderSide(width: 1, color: Colors.grey),
-                      ),
-                    ),
-                    hint: Text('City'),
-                    isExpanded: true,
-                    icon: const Icon(
-                      Icons.location_on,
-                      color: Colors.white,
-                    ),
-                    iconSize: 30,
-                    buttonHeight: 60,
-                    buttonPadding: const EdgeInsets.only(right: 10),
-                    dropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
-                    items: [
-                      "Vienna",
-                      "Graz",
-                      "Linz",
-                      "Salzburg",
-                      "Innsbruck",
-                      "Villach"
-                    ]
-                        .map((item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                          item),
-                    ))
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        city = value.toString();
-                      });
-                    },
-                  ),
+                  // smallgap,
+                  // DropdownButtonFormField2(
+                  //   decoration: const InputDecoration(
+                  //     isDense: true,
+                  //     fillColor: Colors.white,
+                  //     filled: true,
+                  //     suffixIcon: Icon(
+                  //         Icons.keyboard_arrow_down_sharp
+                  //     ),
+                  //     contentPadding: EdgeInsets.zero,
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.all(Radius.circular(15)),
+                  //       borderSide: BorderSide(width: 1, color: Colors.grey),
+                  //     ),
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.all(Radius.circular(15)),
+                  //       borderSide: BorderSide(width: 1, color: Colors.grey),
+                  //     ),
+                  //   ),
+                  //   hint: Text('City'),
+                  //   isExpanded: true,
+                  //   icon: const Icon(
+                  //     Icons.location_on,
+                  //     color: Colors.white,
+                  //   ),
+                  //   iconSize: 30,
+                  //   buttonHeight: 60,
+                  //   buttonPadding: const EdgeInsets.only(right: 10),
+                  //   dropdownDecoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       color: Colors.white),
+                  //   items: [
+                  //     "Vienna",
+                  //     "Graz",
+                  //     "Linz",
+                  //     "Salzburg",
+                  //     "Innsbruck",
+                  //     "Villach"
+                  //   ]
+                  //       .map((item) => DropdownMenuItem<String>(
+                  //     value: item,
+                  //     child: Text(
+                  //         item),
+                  //   ))
+                  //       .toList(),
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       city = value.toString();
+                  //     });
+                  //   },
+                  // ),
                   smallgap,
                   Container(
                     child: TextField(
@@ -285,13 +285,6 @@ class _signupState extends State<signup> {
                     ),
                   ),
                   const SizedBox(height: 5,),
-                  const Text(
-                      "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl, ein Sonderzeichen enthalten und muss mindestens 8 Zeichen lang sein.",
-                      style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.black38
-                      )
-                  ),
                   smallgap,
                   primarybutton(
                     title: "Konto erstellen",
@@ -360,7 +353,7 @@ class _signupState extends State<signup> {
           fontSize: 16.0);
     }
   }
-  }
+}
 
-  savetodatabase() {}
+savetodatabase() {}
 
