@@ -18,13 +18,10 @@ class editProfile extends StatefulWidget {
 }
 
 class _editProfileState extends State<editProfile> {
-  final _auth = FirebaseAuth.instance;
   signupController signup = signupController();
-  TextEditingController emailcontroller=TextEditingController();
-  TextEditingController citycontroller=TextEditingController();
-  TextEditingController namecontroller=TextEditingController();
-
-
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController citycontroller = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
 
   String city = "";
   bool emailok = false;
@@ -32,19 +29,13 @@ class _editProfileState extends State<editProfile> {
   bool showSpinner = false;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<void> getuserdata()
-  async {
+  Future<void> getuserdata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    namecontroller.text=prefs.getString("name").toString()?? "";
-    emailcontroller.text=prefs.getString("email").toString()?? "";
+    namecontroller.text = prefs.getString("name").toString() ?? "";
+    emailcontroller.text = prefs.getString("email").toString() ?? "";
 
-    city=prefs.getString("city").toString()?? "";
-    setState(()  {
-
-
-    });
-
-
+    city = prefs.getString("city").toString() ?? "";
+    setState(() {});
   }
 
   @override
@@ -64,36 +55,39 @@ class _editProfileState extends State<editProfile> {
           child: SingleChildScrollView(
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: Column(
                 children: [
                   Container(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(Icons.arrow_back)),
-                          Text(
-                            "Edit Profile",
-                            style: primarytext,
-                          ),
-                          const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                        ],
-                      )),mediumgap,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.arrow_back)),
+                      Text(
+                        "Profil bearbeiten",
+                        style: primarytext,
+                      ),
+                      const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    ],
+                  )),
+                  mediumgap,
                   const CircleAvatar(
-                    backgroundImage:AssetImage("assets/avatar.png",),
-                    backgroundColor:Colors.white,
+                    backgroundImage: AssetImage(
+                      "assets/avatar.png",
+                    ),
+                    backgroundColor: Colors.white,
                     radius: 70,
                   ),
                   mediumgap,
                   TextField(
-                    controller:namecontroller,
+                    controller: namecontroller,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.account_circle_sharp),
                         border: const OutlineInputBorder(
@@ -112,9 +106,7 @@ class _editProfileState extends State<editProfile> {
                       isDense: true,
                       fillColor: Colors.white,
                       filled: true,
-                      suffixIcon: Icon(
-                          Icons.keyboard_arrow_down_sharp
-                      ),
+                      suffixIcon: Icon(Icons.keyboard_arrow_down_sharp),
                       contentPadding: EdgeInsets.zero,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -125,7 +117,7 @@ class _editProfileState extends State<editProfile> {
                         borderSide: BorderSide(width: 1, color: Colors.grey),
                       ),
                     ),
-                    hint: Text('City'),
+                    hint: Text('Stadt'),
                     isExpanded: true,
                     icon: const Icon(
                       Icons.location_on,
@@ -146,10 +138,9 @@ class _editProfileState extends State<editProfile> {
                       "Villach"
                     ]
                         .map((item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                          item),
-                    ))
+                              value: item,
+                              child: Text(item),
+                            ))
                         .toList(),
                     onChanged: (value) {
                       setState(() {
@@ -161,8 +152,7 @@ class _editProfileState extends State<editProfile> {
                   Container(
                     child: TextField(
                       enabled: false,
-                      controller:emailcontroller,
-
+                      controller: emailcontroller,
                       decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.email_outlined),
                           border: const OutlineInputBorder(
@@ -176,22 +166,20 @@ class _editProfileState extends State<editProfile> {
                           fillColor: Colors.white),
                     ),
                   ),
-
-
                   smallgap,
                   primarybutton(
                     title: "Update",
                     onpressed: () {
-editprofilecontroller edit=editprofilecontroller();
-edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
-
+                      editprofilecontroller edit = editprofilecontroller();
+                      edit.updateuser(namecontroller.text, city, context,
+                          emailcontroller.text);
                     },
                   ),
                   smallgap,
                   secondrybutton(
-                      title: "Password Change Request",
+                      title: "Passwort ändern Anfrage",
                       onpressed: () {
-                       changepasswordrequest();
+                        changepasswordrequest();
                       })
                 ],
               ),
@@ -202,26 +190,24 @@ edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
     );
   }
 
-  changepasswordrequest()
-  async {
+  changepasswordrequest() async {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailcontroller.text);
       setState(() {
-        showSpinner==false;
+        showSpinner == false;
       });
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Password Reset"),
-              content: const Text(
-                  "You will recieve email soon"),
+              title: const Text("Passwort zurücksetzen"),
+              content: const Text("Du erhältst in kürze eine Email"),
               actions: <Widget>[
                 TextButton(
                   child: const Text("OK"),
                   onPressed: () {
-                  Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                 ),
               ],
@@ -229,7 +215,7 @@ edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
           });
     } on FirebaseAuthException catch (e) {
       setState(() {
-        showSpinner==false;
+        showSpinner == false;
       });
       if (e.code == 'user-not-found') {
         showDialog(
@@ -237,8 +223,7 @@ edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Alert"),
-                content: const Text(
-                    "No user found for that email"),
+                content: const Text("No user found for that email"),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("OK"),
@@ -253,9 +238,8 @@ edit.updateuser(namecontroller.text, city, context, emailcontroller.text);
     } catch (e) {
       print(e);
       setState(() {
-        showSpinner==false;
+        showSpinner == false;
       });
     }
   }
-
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:lhere/Model/companyModel.dart';
 import 'package:lhere/Model/postModel.dart';
@@ -16,13 +17,16 @@ class getcompaniesController {
 
   Future<List<postModel>> getcompanydata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String city = await prefs.getString("city").toString();
-    String skill = await prefs.getString("skill").toString();
+    var position = await getCurrentPosition();
+    String city = prefs.getString("city").toString();
+    String skill = prefs.getString("skill").toString();
 
     var bodydata = {
       "city": city,
       "skill": skill,
+      "latitude": position.latitude.toString(),
+      "longitude": position.longitude.toString(),
+      "radius": 100000.toString()
     };
     List<postModel> posts = [];
 
@@ -66,12 +70,15 @@ class getcompaniesController {
     }
   }
 
-  Future<List<postModel>> getfilter(String city, String interest) async {
+  Future<List<postModel>> getfilter(String city, String interest, String radius, double latitude, double longitude) async {
     print(city);
     print(interest);
     var bodydata = {
       "city": city,
       "skill": interest,
+      "latitude": latitude.toString(),
+      "longitude": longitude.toString(),
+      "radius": radius.toString()
     };
     List<postModel> posts = [];
 
@@ -116,7 +123,7 @@ class getcompaniesController {
   }
 
   Future<void> sendemail(String name, String email, String city,
-      String companyemail, String address, BuildContext context) async {
+      String companyemail, String address, File cv, BuildContext context) async {
     var bodydata = json.encode({
       "service_id": "service_jwapcem",
       "template_id": "template_chtxds9",
@@ -126,12 +133,13 @@ class getcompaniesController {
         "name": name,
         "emailfrom": email,
         "emailto": companyemail,
-        "address": address
+        "address": address,
+        "cv":cv
       }
     });
-    var url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    var url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send-form");
     var response = await http.post(url, body: bodydata, headers: {
-      "Content-Type": 'application/json',
+      "Content-Type": 'multipart/form-data',
       "origin": 'http://localhost'
     });
 
@@ -140,5 +148,78 @@ class getcompaniesController {
       content: Text("Your details are sent."),
     ));
     Navigator.pop(context);
+  }
+
+  Future<void> sendMailNew(String name, String email, String city,
+      String companyemail, String phone, String postalCode, File cv, BuildContext context) async {
+    const String fieldName = 'attachment';
+    final String fileName = cv.path.split('/').last;
+
+    final Map<String, String> headers = {
+      'Content-Type': 'multipart/form-data',
+    };
+
+    final Uri uri = Uri.parse("${Constants.baseUrl}App/sendemail.php");
+
+    final http.MultipartRequest request = http.MultipartRequest('POST', uri)
+      ..headers.addAll(headers)
+      ..files.add(http.MultipartFile(
+        fieldName,
+        cv.readAsBytes().asStream(),
+        cv.lengthSync(),
+        filename: fileName,
+      ))
+      ..fields['recipient_name'] = name
+      ..fields['recipient'] = companyemail
+      ..fields['city'] = city
+      ..fields['address'] = city
+      ..fields['phone'] = phone
+      ..fields['code'] = postalCode;
+
+    try {
+      final http.Response response = await http.Response.fromStream(await request.send());
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Your details are sent."),
+      ));
+      Navigator.pop(context);
+    } catch (error) {
+      print('Error uploading file: $error');
+    }
+  }
+
+  Future<Position> getCurrentPosition() async {
+    // Test if location services are enabled.
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        // Permissions are denied forever, handle appropriately.
+        return Future.error(
+            Exception('Location permissions are permanently denied.'));
+      }
+
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error(Exception('Location permissions are denied.'));
+      }
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 }

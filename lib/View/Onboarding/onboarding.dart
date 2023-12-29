@@ -48,7 +48,7 @@ class _onboardingState extends State<onboarding> {
                   )),
             ),
             Positioned(
-              top: 50,
+              top: 100,
               bottom: 50,
               left: 10,
               right: 10,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lhere/Controller/getcompaniesController.dart';
 import 'package:lhere/Model/companyModel.dart';
-import 'package:lhere/Widgets/primarybutton.dart';
 import 'package:lhere/Widgets/secondrybutton.dart';
 
 import '../../../Constants/constants.dart';
@@ -86,8 +85,8 @@ class _jobdetailState extends State<jobdetail> {
                         left: wsize * 0.38,
                         right: wsize * 0.38,
                         child: Container(
-                          width: 100,
-                          height: 100,
+                          width: 110,
+                          height: 110,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border:
@@ -97,7 +96,7 @@ class _jobdetailState extends State<jobdetail> {
                               child: FadeInImage.assetNetwork(
                                 placeholder: "assets/place.png",
                                 image: "${widget.data.image}",
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                               )),
                         ),
                       ),
@@ -147,7 +146,7 @@ class _jobdetailState extends State<jobdetail> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
-                        width: wsize * 0.45,
+                        width: wsize * 0.40,
                         child: Center(
                             child: Text(
                           "Beschreibung",
@@ -179,7 +178,7 @@ class _jobdetailState extends State<jobdetail> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
-                        width: wsize * 0.45,
+                        width: wsize * 0.40,
                         child: Center(
                             child: Text(
                           "Unternehmen",

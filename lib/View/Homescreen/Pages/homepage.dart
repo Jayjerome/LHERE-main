@@ -25,12 +25,13 @@ class homescreen extends StatefulWidget {
 
 class _homescreenState extends State<homescreen> {
   String title = "";
-  String baseUrl = "https://quizzinger.com/there/company/images";
+  String baseUrl = "https://quizzinger.com/lhere/company/images";
   String city = "";
   bool loading = true;
   bool nodata = false;
 
   getcompaniesController getcompany = getcompaniesController();
+
   Future<void> getfilterdata(BuildContext context) async {
     final result = await Navigator.push(
         context,
@@ -40,7 +41,8 @@ class _homescreenState extends State<homescreen> {
 
     if (result['city'] == "" && result['interest'] == "") {
     } else {
-      getallfilterposts(result['city'], result['interest']);
+      getallfilterposts(result['city'], result['interest'], result['radius'],
+          result["latitude"], result["longitude"]);
     }
   }
 
@@ -81,13 +83,15 @@ class _homescreenState extends State<homescreen> {
     });
   }
 
-  getallfilterposts(String city, String interest) async {
+  getallfilterposts(String city, String interest, String radius,
+      double latitude, double longitude) async {
     setState(() {
       loading = true;
       nodata = false;
     });
     postllist.clear();
-    var listq = await getcompany.getfilter(city, interest);
+    var listq =
+        await getcompany.getfilter(city, interest, radius, latitude, longitude);
     setState(() {
       postllist = listq;
       if (postllist.isEmpty) {
@@ -120,7 +124,8 @@ class _homescreenState extends State<homescreen> {
                   color: primarycolor,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 60, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 60, bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,14 +141,15 @@ class _homescreenState extends State<homescreen> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize:
-                                        MediaQuery.of(context).size.height * 0.035),
+                                        MediaQuery.of(context).size.height *
+                                            0.035),
                               ),
                               Text(
                                 " $title !",
                                 style: GoogleFonts.alata(
                                   color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.height * 0.035,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.035,
                                 ),
                               ),
                             ],
@@ -152,7 +158,8 @@ class _homescreenState extends State<homescreen> {
                             "Finde deine Lehrstelle",
                             style: GoogleFonts.alata(
                                 color: Colors.white70,
-                                fontSize: MediaQuery.of(context).size.height * 0.025),
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.025),
                           ),
                           SizedBox(
                             height: 20,
@@ -163,18 +170,20 @@ class _homescreenState extends State<homescreen> {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 20),
-                              width: wsize * .90,
+                              width: wsize * .88,
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(10.0))
-                              ),
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('Suchfilter'),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0),
                                     child: Image.asset(
                                       "assets/filter.png",
                                       color: Colors.black,
@@ -186,7 +195,6 @@ class _homescreenState extends State<homescreen> {
                               ),
                             ),
                           )
-
                         ],
                       ),
                     ],
@@ -226,9 +234,10 @@ class _homescreenState extends State<homescreen> {
                               child: SizedBox(
                                   width: 250,
                                   height: 150,
-                                  child: Text("No Results", style: TextStyle(
-                                    color: Colors.black
-                                  ),)))
+                                  child: Text(
+                                    "No Results",
+                                    style: TextStyle(color: Colors.black),
+                                  )))
                           : Center(
                               child: SizedBox(
                                   width: 250,
@@ -254,12 +263,11 @@ class _homescreenState extends State<homescreen> {
                                           child: ClipRRect(
                                               borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(7),
-                                                  topRight:
-                                                      Radius.circular(7)),
+                                                  topRight: Radius.circular(7)),
                                               child: FadeInImage.assetNetwork(
-                                                placeholder:
-                                                    "assets/place.png",
-                                                image:"${postllist[index].image}",
+                                                placeholder: "assets/place.png",
+                                                image:
+                                                    "${postllist[index].image}",
                                                 fit: BoxFit.cover,
                                               ))),
                                       Positioned(
@@ -295,8 +303,7 @@ class _homescreenState extends State<homescreen> {
                                     child: Text(
                                       "${postllist[index].skill}",
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black54),
+                                          fontSize: 14, color: Colors.black54),
                                     ),
                                   ),
                                   Spacer(),
@@ -306,8 +313,8 @@ class _homescreenState extends State<homescreen> {
                                         Navigator.push(
                                             context,
                                             new MaterialPageRoute(
-                                                builder: (context) =>
-                                                    jobdetail(postllist[index])));
+                                                builder: (context) => jobdetail(
+                                                    postllist[index])));
                                       }),
                                 ],
                               ),

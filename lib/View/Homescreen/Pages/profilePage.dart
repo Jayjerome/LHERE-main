@@ -7,6 +7,7 @@ import 'package:lhere/View/Authentication/Sigin/signin.dart';
 import 'package:lhere/View/Homescreen/Pages/editProfile.dart';
 import 'package:lhere/Widgets/secondrybutton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Constants/constants.dart';
 class profilescren extends StatefulWidget {
@@ -269,7 +270,21 @@ getuserdata();
                   (
                   route) => false, //if you want to disable back feature set to false
             );
-          }))
+          })),
+            smallgap,
+            InkWell(
+                onTap: () async {
+                  if (await canLaunchUrl(Uri.parse(
+                  'https://lehreyourfuture.com/contactus.html'))) {
+                  await launchUrl(Uri.parse(
+                  'https://lehreyourfuture.com/contactus.html'));
+                  } else {
+                  throw 'Could not launch url';
+                  }
+                },
+                child: Text('Fragen? Kontakt', style: TextStyle(
+                  color: primarycolor
+                ),)),
 
           ],
         ),

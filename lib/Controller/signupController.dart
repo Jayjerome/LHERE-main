@@ -31,7 +31,7 @@ class signupController {
     log(response.body.toString());
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
-          msg: "Successfully Registered",
+          msg: "Erfolgreich registriert",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -43,7 +43,7 @@ class signupController {
           MaterialPageRoute(builder: (BuildContext context) => const login()));
     } else {
       Fluttertoast.showToast(
-          msg: "Error",
+          msg: "Nicht erfolgreich registriert",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

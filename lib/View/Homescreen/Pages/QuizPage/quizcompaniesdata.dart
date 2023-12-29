@@ -19,7 +19,7 @@ class _quizpreparatiojState extends State<quizpreparatioj> {
   List<comapnyModel> compnylist = [];
   getcompaniesController getcompany = getcompaniesController();
   bool loading = true;
-  String baseUrl = "https://company.lehreyourfuture.com/images";
+  String baseUrl = "https://company.lehreyourfuture.com";
 
   bool nodata = false;
   getallcompanies() async {

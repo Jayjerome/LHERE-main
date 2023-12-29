@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lhere/Controller/signupController.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Constants/constants.dart';
 import '../../../Widgets/circularbar.dart';
 import '../../../Widgets/primarybutton.dart';
@@ -30,9 +31,11 @@ class _signupState extends State<signup> {
   bool emailok = false;
   String email = "";
   bool showSpinner = false;
+  bool acceptTerms = false;
   var currentLocation;
   var lat = 0.0, long = 0.0;
   Map<String, dynamic> address = {};
+
   bool isEmail(String em) {
     String p =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -111,29 +114,29 @@ class _signupState extends State<signup> {
           child: SingleChildScrollView(
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(Icons.arrow_back)),
-                          Text(
-                            "Konto erstellen",
-                            style: primarytext,
-                          ),
-                          const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                        ],
-                      )),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.arrow_back)),
+                      Text(
+                        "Konto erstellen",
+                        style: primarytext,
+                      ),
+                      const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    ],
+                  )),
                   mediumgap,
                   TextField(
                     onChanged: (v) {
@@ -264,6 +267,8 @@ class _signupState extends State<signup> {
                           fillColor: Colors.white),
                     ),
                   ),
+                  SizedBox(height: 5,),
+                  Text('Passwort muss mindestens 6 Zeichen enthalten'),
                   smallgap,
                   Container(
                     child: TextField(
@@ -284,13 +289,77 @@ class _signupState extends State<signup> {
                           fillColor: Colors.white),
                     ),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  smallgap,
+                  Row(
+                    children: [
+                      Checkbox(
+                          checkColor: Colors.white,
+                          activeColor: Colors.orange,
+                          value: acceptTerms,
+                          onChanged: (value) {
+                            setState(() {
+                              acceptTerms = value!;
+                            });
+                          }),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        child: InkWell(
+                          onTap: () async {
+                            try {
+                              if (await canLaunchUrl(Uri.parse(
+                                  'https://lehreyourfuture.com/contactus.html'))) {
+                                await launchUrl(Uri.parse(
+                                    'https://lehreyourfuture.com/contactus.html'));
+                              } else {
+                                throw 'Could not launch url';
+                              }
+                            } catch (e) {
+                              rethrow;
+                            }
+                          },
+                          child: RichText(
+                            textAlign: TextAlign.start,
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "Ich bin mit der ",
+                                  style: secondrytext,
+                                ),
+                                TextSpan(
+                                  text: 'Datenschutzvereinbarung',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                      fontSize: 14, color: Color(0xff808077)
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' von Lehre Your Future einverstanden',
+                                  style: secondrytext,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   smallgap,
                   primarybutton(
                     title: "Konto erstellen",
                     onpressed: () {
                       emailok = isEmail(email);
-                      register();
+                      if (acceptTerms) {
+                        register();
+                      } else {
+                        Fluttertoast.showToast(
+                            msg:
+                                'Die Datenschutzrichtlinie akzeptieren, um fortzufahren.');
+                      }
                     },
                   ),
                   smallgap,
@@ -312,6 +381,7 @@ class _signupState extends State<signup> {
     if (fullname != "" &&
         password != "" &&
         password == confirmpassword &&
+        password.length > 5 &&
         city != "" &&
         emailok &&
         email != "") {
@@ -321,18 +391,11 @@ class _signupState extends State<signup> {
       try {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) =>
-        {
-          print("object"),
-          signup.addsignup(
-              fullname,
-              city,
-              email,
-              password,
-              context,
-              lat.toString(),
-              long.toString())
-        })
+            .then((value) => {
+
+                  signup.addsignup(fullname, city, email, password, context,
+                      lat.toString(), long.toString())
+                })
             .catchError((e) {
           Fluttertoast.showToast(msg: e!.message);
           setState(() {
@@ -340,9 +403,12 @@ class _signupState extends State<signup> {
           });
         });
       } catch (exception) {
-        print(exception);
+        Fluttertoast.showToast(msg: 'Nicht erfolgreich registriert');
+        setState(() {
+          showSpinner = false;
+        });
       }
-    }else {
+    } else {
       Fluttertoast.showToast(
           msg: "Please check credentials",
           toastLength: Toast.LENGTH_SHORT,
@@ -354,6 +420,3 @@ class _signupState extends State<signup> {
     }
   }
 }
-
-savetodatabase() {}
-

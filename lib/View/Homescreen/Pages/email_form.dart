@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,10 +16,8 @@ import '../../../Widgets/circularbar.dart';
 import '../../../Widgets/secondrybutton.dart';
 
 class emailform extends StatefulWidget {
-
   String? email;
   String? image;
-
 
   emailform(this.email, this.image);
 
@@ -37,6 +38,8 @@ class _emailformState extends State<emailform> {
   bool emailok = false;
   String email = "";
   bool showSpinner = false;
+  File file = File('');
+
   bool isEmail(String em) {
     String p =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -113,44 +116,44 @@ class _emailformState extends State<emailform> {
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
-          progressIndicator:Center(child:  circlularbar()),
-
+          progressIndicator: Center(child: circlularbar()),
           child: SingleChildScrollView(
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: Column(
                 children: [
                   Container(
                       child: Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(Icons.arrow_back)),
-                          SizedBox(width:10,),
-                          Text(
-                            "E-Mail an Unternehmen",
-                            style: primarytext,
-                          ),
-
-                        ],
-                      )),
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(Icons.arrow_back)),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "E-Mail an Unternehmen",
+                        style: primarytext,
+                      ),
+                    ],
+                  )),
                   smallgap,
                   Container(
-                      width:MediaQuery.of(context).size.width*0.8,
-                      height:MediaQuery.of(context).size.height*0.24,
-
-                      child:ClipRRect(
-                          borderRadius:BorderRadius.only(topLeft:Radius.circular(7),topRight:Radius.circular(7)),
-                          child:FadeInImage.assetNetwork(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.24,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(7),
+                              topRight: Radius.circular(7)),
+                          child: FadeInImage.assetNetwork(
                             placeholder: "assets/place.png",
-                            image: "https://company.lehreyourfuture.com/images/${widget.image}",
+                            image:
+                                "https://company.lehreyourfuture.com/images/${widget.image}",
                             fit: BoxFit.cover,
-
-                          ))
-                  ),
+                          ))),
                   mediumgap,
                   TextField(
                     onChanged: (v) {
@@ -213,7 +216,7 @@ class _emailformState extends State<emailform> {
                     child: TextField(
                       onChanged: (v) {
                         email = v;
-                        emailok=isEmail(email);
+                        emailok = isEmail(email);
                       },
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email_outlined),
@@ -234,7 +237,7 @@ class _emailformState extends State<emailform> {
                       onChanged: (v) {
                         phoneNumber = v;
                       },
-                      maxLines:1,
+                      maxLines: 1,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.phone),
                           border: OutlineInputBorder(
@@ -248,8 +251,39 @@ class _emailformState extends State<emailform> {
                           fillColor: Colors.white),
                     ),
                   ),
-
-
+                  smallgap,
+                  InkWell(
+                    onTap: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles();
+                      if (result != null) {
+                        setState(() {
+                          file = File(result.files.single.path!);
+                        });
+                      } else {}
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(top: 20, bottom: 20, left: 10),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(16.0))
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.file_upload, color: Colors.grey,),
+                          SizedBox(width: 20,),
+                          Flexible(
+                            child: Text(
+                              file.path == '' ? "Upload CV" : "Uploaded - ${file.path}",
+                              style: secondrytext,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   smallgap,
                   secondrybutton(
                       title: "Email",
@@ -264,20 +298,20 @@ class _emailformState extends State<emailform> {
       ),
     );
   }
-  Future<void> register() async {
 
-    if (fullname != ""&&
+  Future<void> register() async {
+    if (fullname != "" &&
         city != "" &&
-        emailok && phoneNumber!="" &&
+        emailok &&
+        phoneNumber != "" &&
         email != "") {
-      setState(() {
-        showSpinner=true;
-      });
-      getcompaniesController company=getcompaniesController();
-      company.sendemail(fullname, email, city, widget.email.toString(), phoneNumber, context);
+      showSpinner = true;
+      getcompaniesController company = getcompaniesController();
+      company.sendMailNew(fullname, email, city, widget.email.toString(),
+          phoneNumber, postalCode, file, context);
     } else {
       setState(() {
-        showSpinner=false;
+        showSpinner = false;
       });
       Fluttertoast.showToast(
           msg: "Please check credentials",
@@ -289,5 +323,4 @@ class _emailformState extends State<emailform> {
           fontSize: 16.0);
     }
   }
-// savetodatabase() {}
 }
